@@ -2,174 +2,152 @@ import PageTransition from '@/components/PageTransition';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SectionReveal from '@/components/SectionReveal';
-import { motion } from 'framer-motion';
-import careerImage from '@/assets/career.jpg';
-import { Briefcase, Users, Rocket, Heart } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
-const benefits = [
-  {
-    icon: Briefcase,
-    title: 'Growth Opportunities',
-    description: 'Fast-track your career with challenging projects and leadership opportunities.',
-  },
-  {
-    icon: Users,
-    title: 'Collaborative Culture',
-    description: 'Work with talented individuals who are passionate about transforming the food industry.',
-  },
-  {
-    icon: Rocket,
-    title: 'Innovation First',
-    description: 'Be part of a team that constantly pushes boundaries and embraces new technologies.',
-  },
-  {
-    icon: Heart,
-    title: 'Work-Life Balance',
-    description: 'We believe in flexible work arrangements and comprehensive wellness programs.',
-  },
-];
-
-const openings = [
-  { title: 'Senior Software Engineer', department: 'Engineering', location: 'Mumbai' },
-  { title: 'Product Manager', department: 'Product', location: 'Bangalore' },
-  { title: 'Data Scientist', department: 'Data & Analytics', location: 'Mumbai' },
-  { title: 'Marketing Manager', department: 'Marketing', location: 'Delhi' },
-  { title: 'Operations Lead', department: 'Operations', location: 'Hyderabad' },
-  { title: 'UX Designer', department: 'Design', location: 'Mumbai' },
+const careerSvgs = [
+  'https://www.rebelfoods.com/images/career/career6D.svg',
+  'https://www.rebelfoods.com/images/career/career6D.svg',
+  'https://www.rebelfoods.com/images/career/career6D.svg',
+  'https://www.rebelfoods.com/images/career/career6D.svg',
+  'https://www.rebelfoods.com/images/career/career6D.svg',
+  'https://www.rebelfoods.com/images/career/career6D.svg'
 ];
 
 const BeARebel = () => {
+  const [currentSvg, setCurrentSvg] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSvg((prev) => (prev + 1) % careerSvgs.length);
+    }, 2000); // Change every 2 seconds
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main className="pt-20">
-          {/* Hero Section */}
-          <section className="py-20 lg:py-32 relative overflow-hidden">
-            <div className="container mx-auto px-6 lg:px-12">
-              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                <SectionReveal>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-                    Be a Rebel
-                  </h1>
-                  <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-                    Come, be a Rebel and revolutionize the global food industry. Join a team of passionate individuals who are changing how the world eats.
-                  </p>
-                  <a
-                    href="#openings"
-                    className="inline-flex items-center px-6 py-3 bg-foreground text-background font-medium rounded-lg hover:bg-foreground/90 transition-colors"
-                  >
-                    View Open Positions
-                  </a>
-                </SectionReveal>
-
-                <SectionReveal delay={0.2}>
-                  <div className="relative overflow-hidden rounded-xl blue-tint-overlay">
-                    <img
-                      src={careerImage}
-                      alt="Career at Rebel Foods"
-                      className="w-full h-auto object-cover"
-                    />
-                  </div>
-                </SectionReveal>
-              </div>
-            </div>
-          </section>
-
-          {/* Benefits Section */}
-          <section className="py-20 bg-secondary/30">
-            <div className="container mx-auto px-6 lg:px-12">
+      <Header />
+      <main className="pt-20 bg-background">
+        {/* Hero Section - Text left-offset, phone right with symbols */}
+        <section className="py-32 lg:py-48 bg-background">
+          <div className="container mx-auto px-6 lg:px-12">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left side - Text (slightly offset from corner) */}
               <SectionReveal>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                  Why Join Us?
-                </h2>
-                <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
-                  More than just a job - a chance to make a difference
-                </p>
-              </SectionReveal>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {benefits.map((benefit, index) => (
-                  <motion.div
-                    key={benefit.title}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="bg-card rounded-xl p-8 text-center"
-                  >
-                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-accent/20 flex items-center justify-center">
-                      <benefit.icon className="w-8 h-8 text-accent" />
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground mb-3">
-                      {benefit.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {benefit.description}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Open Positions */}
-          <section id="openings" className="py-20">
-            <div className="container mx-auto px-6 lg:px-12">
-              <SectionReveal>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-center">
-                  Open Positions
-                </h2>
-                <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
-                  Find your perfect role and start your journey with us
-                </p>
-              </SectionReveal>
-
-              <div className="max-w-3xl mx-auto space-y-4">
-                {openings.map((job, index) => (
-                  <motion.div
-                    key={job.title}
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="group bg-card rounded-xl p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 hover:bg-card/80 transition-colors cursor-pointer"
-                  >
-                    <div>
-                      <h3 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors">
-                        {job.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {job.department} • {job.location}
-                      </p>
-                    </div>
-                    <span className="text-foreground font-medium group-hover:translate-x-2 transition-transform">
-                      Apply →
+                <div className="space-y-8 lg:pl-8">
+                  <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                    <span 
+                      className="text-transparent bg-clip-text block" 
+                      style={{
+                        WebkitTextStroke: '3px #f59e0b',
+                        WebkitTextFillColor: 'transparent'
+                      }}
+                    >
+                      Join the
                     </span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </section>
+                    <span 
+                      className="text-transparent bg-clip-text block" 
+                      style={{
+                        WebkitTextStroke: '3px #f59e0b',
+                        WebkitTextFillColor: 'transparent'
+                      }}
+                    >
+                      Rebel team
+                    </span>
+                  </h1>
+                  
+                  <div className="text-xl lg:text-2xl text-white space-y-3">
+                    <p>To apply for jobs at Rebel Foods, kindly email</p>
+                    <p>
+                      us at{' '}
+                      <a 
+                        href="mailto:careers@rebelfoods.com"
+                        className="text-blue-400 hover:text-blue-300 transition-colors underline"
+                      >
+                        careers@rebelfoods.com
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </SectionReveal>
 
-          {/* Culture Section */}
-          <section className="py-20 bg-secondary/30">
-            <div className="container mx-auto px-6 lg:px-12">
-              <SectionReveal>
-                <div className="max-w-3xl mx-auto text-center">
-                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                    Life at Rebel
-                  </h2>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    At Rebel Foods, we foster a culture of innovation, collaboration, and continuous learning. Our diverse team of 5000+ employees across 10+ countries works together to create memorable food experiences for millions of customers.
-                  </p>
+              {/* Right side - Phone with symbols INSIDE the screen */}
+              <SectionReveal delay={0.2}>
+                <div className="flex justify-center lg:justify-end">
+                  {/* Phone mockup */}
+                  <div className="w-64 h-96 bg-gray-800 rounded-[3rem] p-6 border-8 border-gray-700">
+                    <div className="w-full h-full bg-gray-900 rounded-[2rem] relative overflow-hidden">
+                      {/* Career symbols using CSS - matching screenshots */}
+                      
+                      {/* Symbol 1: Person with chat bubble */}
+                      <div className={`absolute top-6 left-6 w-12 h-12 transition-all duration-1000 ${currentSvg % 4 === 0 ? 'opacity-70' : 'opacity-30'}`}>
+                        <div className="relative">
+                          {/* Person head */}
+                          <div className="w-6 h-6 bg-gray-400 rounded-full absolute bottom-2 left-1"></div>
+                          {/* Person body */}
+                          <div className="w-8 h-4 bg-gray-400 rounded-t-lg absolute bottom-0"></div>
+                          {/* Chat bubble */}
+                          <div className="w-6 h-4 bg-yellow-600 rounded-lg absolute top-0 right-0 flex items-center justify-center">
+                            <div className="flex space-x-1">
+                              <div className="w-1 h-1 bg-white rounded-full"></div>
+                              <div className="w-1 h-1 bg-white rounded-full"></div>
+                              <div className="w-1 h-1 bg-white rounded-full"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Symbol 2: Location pin */}
+                      <div className={`absolute top-8 right-6 w-10 h-12 transition-all duration-1000 ${currentSvg % 4 === 1 ? 'opacity-70' : 'opacity-30'}`}>
+                        <div className="relative">
+                          {/* Pin head */}
+                          <div className="w-6 h-6 bg-gray-400 rounded-full border-2 border-gray-300 absolute top-0 left-2"></div>
+                          {/* Pin center */}
+                          <div className="w-3 h-3 bg-yellow-600 rounded-full absolute top-1.5 left-3.5"></div>
+                          {/* Pin tail */}
+                          <div className="w-1 h-4 bg-gray-400 absolute bottom-0 left-4.5 transform rotate-45"></div>
+                        </div>
+                      </div>
+
+                      {/* Symbol 3: Crossed tools */}
+                      <div className={`absolute bottom-16 left-6 w-12 h-12 transition-all duration-1000 ${currentSvg % 4 === 2 ? 'opacity-70' : 'opacity-30'}`}>
+                        <div className="relative">
+                          {/* Tool 1 - Whisk */}
+                          <div className="w-1 h-8 bg-yellow-600 absolute top-2 left-2 transform rotate-45"></div>
+                          <div className="w-3 h-4 border border-gray-400 rounded-t-full absolute top-0 left-0.5 transform rotate-45"></div>
+                          {/* Tool 2 - Spatula */}
+                          <div className="w-1 h-8 bg-gray-400 absolute top-2 right-2 transform -rotate-45"></div>
+                          <div className="w-3 h-2 bg-gray-400 rounded absolute top-0 right-0.5 transform -rotate-45"></div>
+                        </div>
+                      </div>
+
+                      {/* Symbol 4: Phone with finger */}
+                      <div className={`absolute bottom-6 right-6 w-10 h-12 transition-all duration-1000 ${currentSvg % 4 === 3 ? 'opacity-70' : 'opacity-30'}`}>
+                        <div className="relative">
+                          {/* Phone */}
+                          <div className="w-6 h-10 bg-gray-400 rounded-lg border border-gray-300 absolute top-0 left-2"></div>
+                          <div className="w-4 h-8 bg-gray-800 rounded absolute top-1 left-3"></div>
+                          {/* Finger */}
+                          <div className="w-3 h-6 bg-yellow-600 rounded-full absolute bottom-0 left-0 transform rotate-12"></div>
+                        </div>
+                      </div>
+                      
+                      {/* Center hand/finger illustration */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="relative">
+                          <div className="w-20 h-32 bg-yellow-600 rounded-full transform rotate-12 opacity-80"></div>
+                          <div className="absolute -bottom-2 -right-2 w-8 h-12 bg-yellow-700 rounded-full transform rotate-45"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </SectionReveal>
             </div>
-          </section>
-        </main>
-        <Footer />
-      </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
     </PageTransition>
   );
 };

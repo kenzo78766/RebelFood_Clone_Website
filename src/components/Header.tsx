@@ -29,8 +29,8 @@ const navItems: NavItem[] = [
     label: 'Be a Rebel', 
     href: '/be-a-rebel',
     subItems: [
-      { label: 'Careers', href: '/careers' },
-      { label: 'Franchise', href: '/franchise' },
+      { label: 'Join our team', href: '/join-our-team' },
+      { label: 'Launcher', href: '/launcher' },
     ]
   },
   { label: 'Franchise', href: '/franchise' },
