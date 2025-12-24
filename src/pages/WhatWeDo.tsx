@@ -2,14 +2,9 @@ import PageTransition from '@/components/PageTransition';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SectionReveal from '@/components/SectionReveal';
-import { motion } from 'framer-motion';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Original site assets (hotlinked)
 const whatWeDoHeroImg = "https://www.rebelfoods.com/uploads/top_content/9371126441640333832what_we_do.png";
@@ -113,6 +108,52 @@ const stats = [
 ] as const;
 
 const WhatWeDo = () => {
+  const [currentBrand, setCurrentBrand] = useState(0);
+  const [slideDirection, setSlideDirection] = useState(0); // 1 for next, -1 for prev
+
+  const nextBrand = () => {
+    setSlideDirection(1);
+    setCurrentBrand((prev) => (prev + 1) % brands.length);
+  };
+
+  const prevBrand = () => {
+    setSlideDirection(-1);
+    setCurrentBrand((prev) => (prev - 1 + brands.length) % brands.length);
+  };
+
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 300 : -300,
+      opacity: 0
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 300 : -300,
+      opacity: 0
+    })
+  };
+
+  const imageVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? -300 : 300,
+      opacity: 0
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? -300 : 300,
+      opacity: 0
+    })
+  };
   return (
     <PageTransition>
       <div className="min-h-screen bg-background">
@@ -240,7 +281,7 @@ const WhatWeDo = () => {
             </div>
           </section>
 
-          {/* Brands Carousel Section - matches original screenshot */}
+          {/* Brand Carousel with Split Slide Animation */}
           <section className="py-20 bg-gray-800">
             <div className="container mx-auto px-6 lg:px-12">
               <SectionReveal>
@@ -249,75 +290,105 @@ const WhatWeDo = () => {
                 </h2>
               </SectionReveal>
 
-              <div className="relative">
-                <Carousel className="w-full" opts={{ loop: true }}>
-                  <CarouselContent>
-                    {brands.map((brand, index) => (
-                      <CarouselItem key={brand.name}>
-                        <motion.div
-                          initial={{ opacity: 0, x: 50 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -50 }}
-                          transition={{ duration: 0.5 }}
-                          className="grid lg:grid-cols-2 gap-12 items-center min-h-[500px] px-4"
-                        >
-                          {/* Brand Text Content */}
-                          <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6, delay: 0.1 }}
-                            className="space-y-6 text-white"
+              <div className="relative min-h-[500px] overflow-hidden">
+                <AnimatePresence initial={false} custom={slideDirection}>
+                  <motion.div
+                    key={currentBrand}
+                    custom={slideDirection}
+                    className="absolute inset-0 grid lg:grid-cols-2 gap-12 items-center px-8"
+                  >
+                    {/* Brand Info - Slides opposite to image */}
+                    <motion.div
+                      custom={slideDirection}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{
+                        x: { type: "spring", stiffness: 300, damping: 30 },
+                        opacity: { duration: 0.4 }
+                      }}
+                      className="space-y-6 text-white"
+                    >
+                      <div className="mb-8">
+                        <img
+                          src={brands[currentBrand].logo}
+                          alt={`${brands[currentBrand].name} logo`}
+                          className="h-16 w-auto object-contain"
+                          loading="lazy"
+                        />
+                      </div>
+                      <p className="text-white/80 leading-relaxed text-lg">
+                        {brands[currentBrand].description}
+                      </p>
+                      {brands[currentBrand].website && (
+                        <div className="mt-8">
+                          <a
+                            href={brands[currentBrand].website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block px-6 py-3 border border-accent-coral text-accent-coral hover:bg-accent-coral hover:text-white font-semibold rounded-full transition-colors"
                           >
-                            <div className="mb-8">
-                              <img
-                                src={brand.logo}
-                                alt={`${brand.name} logo`}
-                                className="h-16 w-auto object-contain"
-                                loading="lazy"
-                              />
-                            </div>
-                            <p className="text-white/80 leading-relaxed text-lg">
-                              {brand.description}
-                            </p>
-                            {brand.website && (
-                              <div className="mt-8">
-                                <a
-                                  href={brand.website}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-block px-6 py-3 border border-accent-coral text-accent-coral hover:bg-accent-coral hover:text-white font-semibold rounded-full transition-colors"
-                                >
-                                  Visit website &gt;
-                                </a>
-                              </div>
-                            )}
-                          </motion.div>
+                            Visit website &gt;
+                          </a>
+                        </div>
+                      )}
+                    </motion.div>
 
-                          {/* Brand Food Image */}
-                          <motion.div
-                            initial={{ opacity: 0, x: 30 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            className="flex items-center justify-center"
-                          >
-                            {brand.image && (
-                              <img
-                                src={brand.image}
-                                alt={brand.name}
-                                className="max-h-96 w-auto object-contain"
-                                loading="lazy"
-                              />
-                            )}
-                          </motion.div>
-                        </motion.div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  
-                  {/* Custom styled arrows matching original screenshot */}
-                  <CarouselPrevious className="absolute left-8 top-1/2 -translate-y-1/2 w-14 h-14 border-2 border-white/30 bg-transparent hover:bg-white/10 text-white rounded-full" />
-                  <CarouselNext className="absolute right-8 top-1/2 -translate-y-1/2 w-14 h-14 border-2 border-white/30 bg-transparent hover:bg-white/10 text-white rounded-full" />
-                </Carousel>
+                    {/* Brand Food Image - Slides opposite to text */}
+                    <motion.div
+                      custom={slideDirection}
+                      variants={imageVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{
+                        x: { type: "spring", stiffness: 300, damping: 30 },
+                        opacity: { duration: 0.4 }
+                      }}
+                      className="flex items-center justify-center"
+                    >
+                      {brands[currentBrand].image && (
+                        <img
+                          src={brands[currentBrand].image}
+                          alt={brands[currentBrand].name}
+                          className="max-h-96 w-auto object-contain"
+                          loading="lazy"
+                        />
+                      )}
+                    </motion.div>
+                  </motion.div>
+                </AnimatePresence>
+                
+                {/* Custom styled arrows with Split Slide functionality */}
+                <button
+                  onClick={prevBrand}
+                  className="absolute left-8 top-1/2 -translate-y-1/2 w-14 h-14 border-2 border-white/30 bg-transparent hover:bg-white/10 text-white rounded-full flex items-center justify-center transition-colors z-10"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={nextBrand}
+                  className="absolute right-8 top-1/2 -translate-y-1/2 w-14 h-14 border-2 border-white/30 bg-transparent hover:bg-white/10 text-white rounded-full flex items-center justify-center transition-colors z-10"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </div>
+
+              {/* Brand indicator dots */}
+              <div className="flex justify-center mt-8 space-x-2">
+                {brands.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setSlideDirection(index > currentBrand ? 1 : -1);
+                      setCurrentBrand(index);
+                    }}
+                    className={`w-3 h-3 rounded-full transition-colors ${
+                      index === currentBrand ? 'bg-accent-coral' : 'bg-white/30'
+                    }`}
+                  />
+                ))}
               </div>
             </div>
           </section>
