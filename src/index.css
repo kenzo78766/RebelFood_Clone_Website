@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Rebel Foods Dark Theme */
+    --background: 0 0% 16%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 20%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 20%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 16%;
+
+    --secondary: 0 0% 22%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 30%;
+    --muted-foreground: 0 0% 70%;
+
+    --accent: 220 70% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 30%;
+    --input: 0 0% 25%;
+    --ring: 0 0% 100%;
+
+    --radius: 0.5rem;
+
+    /* Custom Rebel Colors */
+    --rebel-dark: 0 0% 16%;
+    --rebel-darker: 0 0% 12%;
+    --rebel-light: 0 0% 22%;
+    --rebel-blue: 220 70% 50%;
+    --rebel-blue-overlay: 220 70% 40%;
+    --wooden-bg: 30 30% 25%;
+
+    /* Gradients */
+    --gradient-hero-overlay: linear-gradient(135deg, hsla(220, 70%, 40%, 0.7), hsla(220, 70%, 50%, 0.5));
+    --gradient-card: linear-gradient(180deg, hsla(0, 0%, 20%, 1), hsla(0, 0%, 16%, 1));
+  }
+
+  .dark {
+    --background: 0 0% 16%;
+    --foreground: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-poppins antialiased;
+  }
+}
+
+@layer utilities {
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .image-blue-overlay {
+    filter: grayscale(0.3) sepia(0.1) saturate(1.2);
+    mix-blend-mode: luminosity;
+  }
+
+  .blue-tint-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: hsla(220, 70%, 50%, 0.4);
+    mix-blend-mode: color;
+    pointer-events: none;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--rebel-darker));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
