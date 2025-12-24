@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import SectionReveal from '@/components/SectionReveal';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const rebelValues = [
   {
@@ -66,6 +67,23 @@ const testimonials = [
 
 const WorkingAtRebel = () => {
   const [currentValue, setCurrentValue] = useState(0);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  const nextValue = () => {
+    setCurrentValue((prev) => (prev + 1) % rebelValues.length);
+  };
+
+  const prevValue = () => {
+    setCurrentValue((prev) => (prev - 1 + rebelValues.length) % rebelValues.length);
+  };
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
 
   return (
     <PageTransition>
@@ -75,20 +93,20 @@ const WorkingAtRebel = () => {
         <section className="py-24 lg:py-32 bg-background">
           <div className="container mx-auto px-6 lg:px-12">
             <SectionReveal>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                <span className="text-transparent bg-clip-text" style={{WebkitTextStroke: '2px #3b82f6', WebkitTextFillColor: 'transparent'}}>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                <span className="text-transparent bg-clip-text" style={{WebkitTextStroke: '2px #6366f1', WebkitTextFillColor: 'transparent'}}>
                   Working At Rebel
                 </span>
               </h1>
-              <p className="text-lg lg:text-xl text-muted-foreground max-w-3xl">
+              <p className="text-lg lg:text-xl text-muted-foreground max-w-3xl leading-relaxed">
                 We garner an open, transparent and encouragement led culture where everyone is actively trying to stand true to the Rebel Values.
               </p>
             </SectionReveal>
           </div>
         </section>
 
-        {/* The Rebel Culture Video Section - Hidden initially, Split Slide on scroll */}
-        <section className="py-20 bg-gray-900 mt-20">
+        {/* The Rebel Culture Video Section */}
+        <section className="py-20 bg-gray-900">
           <div className="container mx-auto px-6 lg:px-12">
             <motion.div
               initial={{ opacity: 0, y: 100 }}
@@ -97,20 +115,20 @@ const WorkingAtRebel = () => {
               transition={{ duration: 0.8 }}
               viewport={{ amount: 0.3 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-12 text-center">
                 The Rebel Culture
               </h2>
             </motion.div>
             
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-5xl mx-auto">
               <motion.div
-                initial={{ x: -200, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                whileNotInView={{ x: -200, opacity: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                whileNotInView={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
                 viewport={{ amount: 0.3 }}
               >
-                <div className="bg-black rounded-2xl overflow-hidden mb-8">
+                <div className="bg-black rounded-2xl overflow-hidden mb-12 shadow-2xl">
                   <video
                     className="w-full aspect-video"
                     controls
@@ -124,24 +142,26 @@ const WorkingAtRebel = () => {
               </motion.div>
               
               <motion.div
-                initial={{ x: 200, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                whileNotInView={{ x: 200, opacity: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileNotInView={{ opacity: 0, y: 50 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                 viewport={{ amount: 0.3 }}
               >
-                <div className="text-center space-y-6">
-                  <p className="text-lg text-white/90 leading-relaxed">
-                    We are REBEL. Never shy of redefining the norm, never shy of changes, just never shy. We are a bunch of highly motivated people who share a common goal. Everyone is empowered to experiment with the way they choose to work.
-                  </p>
-                  <p className="text-lg text-white/90 leading-relaxed">
-                    We garner an open, transparent and encouragement led culture where everyone is actively trying to stand true to the five Rebel Values. Our organizational culture attracts customers and qualified employees, and we enjoy an interesting mix of people.
-                  </p>
+                <div className="text-center space-y-8">
+                  <div className="space-y-6">
+                    <p className="text-lg lg:text-xl text-white/90 leading-relaxed">
+                      We are REBEL. Never shy of redefining the norm, never shy of changes, just never shy. We are a bunch of highly motivated people who share a common goal. Everyone is empowered to experiment with the way they choose to work.
+                    </p>
+                    <p className="text-lg lg:text-xl text-white/90 leading-relaxed">
+                      We garner an open, transparent and encouragement led culture where everyone is actively trying to stand true to the five Rebel Values. Our organizational culture attracts customers and qualified employees, and we enjoy an interesting mix of people.
+                    </p>
+                  </div>
                   <a 
                     href="https://drive.google.com/file/d/1f8BsKluXEu_Ey04iFoFtG1ktoBs1-YRD/view?usp=drivesdk"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block px-6 py-3 border border-accent-coral text-accent-coral hover:bg-accent-coral hover:text-white font-semibold rounded-full transition-colors"
+                    className="inline-block px-8 py-3 border-2 border-accent-coral text-accent-coral hover:bg-accent-coral hover:text-white font-semibold rounded-full transition-all duration-300"
                   >
                     Click here to Understand the Culture at Rebel Foods →
                   </a>
@@ -155,7 +175,7 @@ const WorkingAtRebel = () => {
         <section className="py-20 bg-background">
           <div className="container mx-auto px-6 lg:px-12">
             <SectionReveal>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-16 text-center">
                 Rebel Values
               </h2>
             </SectionReveal>
@@ -168,12 +188,12 @@ const WorkingAtRebel = () => {
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6 }}
-                  className="space-y-6"
+                  className="space-y-8"
                 >
-                  <div className="bg-blue-600 rounded-full px-8 py-4 w-fit">
-                    <span className="text-white font-bold text-lg">{currentValue + 1}</span>
+                  <div className="bg-indigo-600 rounded-full px-8 py-4 w-fit">
+                    <span className="text-white font-bold text-xl">{currentValue + 1}</span>
                   </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-foreground">
+                  <h3 className="text-2xl lg:text-4xl font-bold text-foreground leading-tight">
                     {rebelValues[currentValue].title}
                   </h3>
                   <p className="text-lg text-muted-foreground leading-relaxed">
@@ -192,27 +212,48 @@ const WorkingAtRebel = () => {
                   <img
                     src={rebelValues[currentValue].image}
                     alt={rebelValues[currentValue].title}
-                    className="w-full h-96 object-cover rounded-2xl"
+                    className="w-full h-96 object-cover rounded-2xl shadow-lg"
                     loading="lazy"
                   />
                 </motion.div>
               </div>
 
-              {/* Value Navigation */}
-              <div className="flex flex-wrap justify-center gap-4 mt-12">
-                {rebelValues.map((_, index) => (
+              {/* Value Navigation - Buttons and Indicators */}
+              <div className="flex flex-col items-center gap-8 mt-16">
+                {/* Navigation Buttons */}
+                <div className="flex items-center gap-6">
                   <button
-                    key={index}
-                    onClick={() => setCurrentValue(index)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                      index === currentValue 
-                        ? 'bg-accent-coral text-white' 
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
+                    onClick={prevValue}
+                    className="p-3 rounded-full border-2 border-gray-300 text-gray-600 hover:border-accent-coral hover:text-accent-coral transition-all duration-300"
+                    aria-label="Previous value"
                   >
-                    {index + 1}
+                    <ChevronLeft size={24} />
                   </button>
-                ))}
+                  
+                  <div className="flex flex-wrap justify-center gap-3">
+                    {rebelValues.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentValue(index)}
+                        className={`w-10 h-10 rounded-full text-sm font-bold transition-all duration-300 ${
+                          index === currentValue 
+                            ? 'bg-accent-coral text-white' 
+                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        }`}
+                      >
+                        {index + 1}
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={nextValue}
+                    className="p-3 rounded-full border-2 border-gray-300 text-gray-600 hover:border-accent-coral hover:text-accent-coral transition-all duration-300"
+                    aria-label="Next value"
+                  >
+                    <ChevronRight size={24} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -222,29 +263,76 @@ const WorkingAtRebel = () => {
         <section className="py-20 bg-gray-900">
           <div className="container mx-auto px-6 lg:px-12">
             <SectionReveal>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-16 text-center">
                 Related Blogs
               </h2>
             </SectionReveal>
             
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <SectionReveal key={index} delay={index * 0.2}>
-                  <div className="bg-white rounded-2xl p-6 text-center">
+            <div className="max-w-4xl mx-auto">
+              <motion.div
+                key={currentTestimonial}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+                className="bg-white rounded-2xl p-8 lg:p-12 shadow-xl"
+              >
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                  {/* Testimonial Image */}
+                  <div className="flex justify-center">
                     <img 
-                      src={testimonial.image} 
-                      alt={testimonial.name}
-                      className="w-24 h-24 rounded-full mx-auto mb-6 object-cover"
+                      src={testimonials[currentTestimonial].image} 
+                      alt={testimonials[currentTestimonial].name}
+                      className="w-64 h-64 rounded-xl object-cover shadow-lg"
                       loading="lazy"
                     />
-                    <p className="text-gray-600 mb-6 italic leading-relaxed">
-                      {testimonial.quote}
-                    </p>
-                    <h4 className="text-gray-900 font-bold text-lg">{testimonial.name}</h4>
-                    <p className="text-accent-coral text-sm font-medium">{testimonial.role}</p>
                   </div>
-                </SectionReveal>
-              ))}
+
+                  {/* Testimonial Content */}
+                  <div className="space-y-6">
+                    <p className="text-lg text-gray-700 leading-relaxed italic">
+                      "{testimonials[currentTestimonial].quote}"
+                    </p>
+                    <div>
+                      <h4 className="text-xl font-bold text-gray-900">{testimonials[currentTestimonial].name}</h4>
+                      <p className="text-accent-coral font-medium">{testimonials[currentTestimonial].role}</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Testimonial Navigation */}
+              <div className="flex items-center justify-center gap-6 mt-12">
+                <button
+                  onClick={prevTestimonial}
+                  className="p-3 rounded-full border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300"
+                  aria-label="Previous testimonial"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+
+                <div className="flex gap-3">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentTestimonial(index)}
+                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                        index === currentTestimonial 
+                          ? 'bg-accent-coral w-8' 
+                          : 'bg-white/50 hover:bg-white'
+                      }`}
+                      aria-label={`Go to testimonial ${index + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  onClick={nextTestimonial}
+                  className="p-3 rounded-full border-2 border-white text-white hover:bg-white hover:text-gray-900 transition-all duration-300"
+                  aria-label="Next testimonial"
+                >
+                  <ChevronRight size={24} />
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -256,12 +344,12 @@ const WorkingAtRebel = () => {
               <SectionReveal>
                 <a 
                   href="/franchise"
-                  className="block p-8 bg-card border border-border rounded-2xl hover:border-accent/50 transition-all duration-300 group"
+                  className="block p-8 bg-card border-2 border-indigo-600 rounded-2xl hover:shadow-lg transition-all duration-300 group"
                 >
-                  <h3 className="text-2xl font-bold text-blue-500 mb-3 transition-colors">
+                  <h3 className="text-2xl font-bold text-indigo-600 mb-3 group-hover:text-indigo-700 transition-colors">
                     Franchise with Rebel &gt;
                   </h3>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-lg">
                     Scale new heights of entrepreneurship with expert tech & culinary innovation and advanced software.
                   </p>
                 </a>
@@ -271,12 +359,12 @@ const WorkingAtRebel = () => {
                   href="https://www.rebelfoods.com/join-our-team"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block p-8 bg-card border border-border rounded-2xl hover:border-accent/50 transition-all duration-300 group"
+                  className="block p-8 bg-card border-2 border-indigo-600 rounded-2xl hover:shadow-lg transition-all duration-300 group"
                 >
-                  <h3 className="text-2xl font-bold text-blue-500 mb-3 transition-colors">
+                  <h3 className="text-2xl font-bold text-indigo-600 mb-3 group-hover:text-indigo-700 transition-colors">
                     Join us as a disruptor &gt;
                   </h3>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-lg">
                     Come, be a Rebel and revolutionize the global food industry, today!
                   </p>
                 </a>
