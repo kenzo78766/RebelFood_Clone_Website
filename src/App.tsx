@@ -19,6 +19,7 @@ import PressRelease from "./pages/PressRelease";
 import Events from "./pages/Events";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
+import Launcher from "./pages/Launcher";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,8 @@ const AnimatedRoutes = () => {
         <Route path="/who-we-are" element={<WhoWeAre />} />
         <Route path="/be-a-rebel" element={<BeARebel />} />
         <Route path="/join-our-team" element={<BeARebel />} />
+        <Route path="/launcher" element={<Launcher />} />
+        <Route path="/rebel-launcher" element={<Launcher />} />
         <Route path="/franchise" element={<Franchise />} />
         <Route path="/rebel-spirit" element={<RebelSpirit />} />
         <Route path="/about" element={<About />} />
