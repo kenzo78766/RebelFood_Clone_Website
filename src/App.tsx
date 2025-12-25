@@ -10,6 +10,7 @@ import WhoWeAre from "./pages/WhoWeAre";
 import BeARebel from "./pages/BeARebel";
 import Franchise from "./pages/Franchise";
 import RebelSpirit from "./pages/RebelSpirit";
+import OurBlogs from "./pages/OurBlogs";
 import About from "./pages/About";
 import RebelTeam from "./pages/RebelTeam";
 import WorkingAtRebel from "./pages/WorkingAtRebel";
@@ -38,8 +39,8 @@ const AnimatedRoutes = () => {
         <Route path="/launcher" element={<Launcher />} />
         <Route path="/rebel-launcher" element={<Launcher />} />
         <Route path="/franchise" element={<Franchise />} />
-        <Route path="/rebel-spirit" element={<RebelSpirit />} />
-        <Route path="/blogs" element={<RebelSpirit />} />
+        <Route path="/rebel-spirit" element={<OurBlogs />} />
+        <Route path="/blogs" element={<OurBlogs />} />
         <Route path="/medium-stories" element={<MediumStories />} />
         <Route path="/about" element={<About />} />
         <Route path="/rebel-team" element={<RebelTeam />} />
