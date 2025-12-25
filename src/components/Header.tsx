@@ -34,7 +34,14 @@ const navItems: NavItem[] = [
     ]
   },
   { label: 'Franchise', href: '/franchise' },
-  { label: 'Rebel Spirit', href: '/rebel-spirit' },
+  { 
+    label: 'Rebel Spirit', 
+    href: '/rebel-spirit',
+    subItems: [
+      { label: 'Our Blogs', href: '/blogs' },
+      { label: 'Medium Stories', href: '/medium-stories' },
+    ],
+  },
   { 
     label: 'About Rebel', 
     href: '/about',

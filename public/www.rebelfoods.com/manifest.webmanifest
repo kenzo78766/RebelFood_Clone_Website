@@ -1,0 +1,14 @@
+{
+    "name": "Rebel Foods",
+    "short_name": "Rebel Foods",
+    "description": "",
+    "theme_color": "#252525",
+    "background_color": "#252525",
+    "display": "browser",
+    "Scope": "/",
+    "start_url": "/",
+    "icons": [
+        
+    ],
+    "splash_pages": null
+}

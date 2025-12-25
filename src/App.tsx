@@ -20,6 +20,7 @@ import Events from "./pages/Events";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 import Launcher from "./pages/Launcher";
+import MediumStories from "./pages/MediumStories";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,8 @@ const AnimatedRoutes = () => {
         <Route path="/rebel-launcher" element={<Launcher />} />
         <Route path="/franchise" element={<Franchise />} />
         <Route path="/rebel-spirit" element={<RebelSpirit />} />
+        <Route path="/blogs" element={<RebelSpirit />} />
+        <Route path="/medium-stories" element={<MediumStories />} />
         <Route path="/about" element={<About />} />
         <Route path="/rebel-team" element={<RebelTeam />} />
         <Route path="/working-at-rebel" element={<WorkingAtRebel />} />

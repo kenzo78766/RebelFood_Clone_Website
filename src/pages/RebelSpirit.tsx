@@ -1,222 +1,254 @@
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import PageTransition from '@/components/PageTransition';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import SectionReveal from '@/components/SectionReveal';
-import { motion } from 'framer-motion';
 
-const blogPosts = [
-  {
-    title: 'Scaling Driver Fleet with Minimum Cost With Great Efficiency',
-    excerpt: 'Learn how we optimized our delivery operations to serve millions of customers efficiently.',
-    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/0-zxgezhjhbantbqjc-1.png',
-    category: 'Operations',
-    date: 'Dec 15, 2024',
-  },
+const heroTopics = [
+  'culinary innovations',
+  'foodtech disruption',
+  'marketing strategies',
+  'entrepreneurial stories',
+  'hungry aspirations',
+];
+
+const featuredMain = {
+  title: 'Finding Diverse Food Lovers',
+  excerpt:
+    'So many people around the world. It is very important to set the Target Group at initial level for a brand to become famous.',
+  topic: 'Technology',
+  author: 'Sarvistha Yadav',
+  image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/0-zxgezhjhbantbqjc.png',
+};
+
+const mostRead = [
   {
     title: 'How to build 1000 Restaurants in 24 months — The REBEL method!',
-    excerpt: 'Our journey of rapid expansion and the strategies that made it possible.',
-    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/the-rebelway.png',
-    category: 'Growth',
-    date: 'Dec 10, 2024',
+    image: 'https://www.rebelfoods.com/uploads/blogs/thumbnails/the-rebelway.png',
+    topic: 'Business',
+    author: 'Jaydeep Barman',
   },
   {
-    title: 'My journey to build a platform for the next million internet restaurants',
-    excerpt: 'The vision and technology behind Rebel Foods\' operating system.',
-    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/0-2oftshgffqfgnqe.png',
-    category: 'Technology',
-    date: 'Dec 5, 2024',
+    title: 'Why is Rebel Foods Hiring Super-talented Engineers?',
+    image: 'https://www.rebelfoods.com/uploads/blogs/thumbnails/tech-stack.png',
+    topic: 'Technology',
+    author: 'Jaydeep Barman',
   },
   {
-    title: 'The Future of Cloud Kitchens in Southeast Asia',
-    excerpt: 'Exploring the massive opportunity in the region\'s food delivery market.',
-    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600',
-    category: 'Market Insights',
-    date: 'Nov 28, 2024',
+    title: 'Introducing Rebel Launcher: Launchpad for Entrepreneurs with Delightful Food Brands',
+    image: 'https://www.rebelfoods.com/uploads/blogs/thumbnails/rebel-launchpad.png',
+    topic: 'Launcher',
+    author: 'Vidyut Parashar',
   },
   {
-    title: 'Building a Brand Portfolio: Lessons from Rebel Foods',
-    excerpt: 'How we created and scaled 45+ brands from a single platform.',
-    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600',
-    category: 'Strategy',
-    date: 'Nov 20, 2024',
-  },
-  {
-    title: 'Data-Driven Menu Engineering',
-    excerpt: 'Using analytics to create dishes that customers love.',
-    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600',
-    category: 'Data Science',
-    date: 'Nov 15, 2024',
+    title: 'The Slay Story',
+    image: 'https://www.rebelfoods.com/uploads/blogs/thumbnails/whatsapp-image-2021-01-07-at-120641.jpeg',
+    topic: 'Launcher',
+    author: 'Ankur Sharma',
   },
 ];
 
-const categories = ['All', 'Technology', 'Operations', 'Growth', 'Strategy', 'Market Insights'];
+const topicFilters = ['All Topics', 'Brand', 'Business', 'Culinary', 'Technology', 'Launcher'];
+
+const storyCards = [
+  {
+    title: 'The Slay Story',
+    topic: 'Launcher',
+    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/whatsapp-image-2021-01-07-at-120641.jpeg',
+    description:
+      'An inside peek into how Rebel opened its unique Operating System in Launcher Program. This is first hand account of Rebel and Dropkaffe team coming together to create SLAY - India\'s third largest coffee delivery brand within 12 months of operation.',
+  },
+  {
+    title: 'Introducing Rebel Launcher: Launchpad for Entrepreneurs with Delightful Food Brands',
+    topic: 'Launcher',
+    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/rocket-launcher.png',
+    description:
+      'Running Rebel Foods for 7+ years has taught us many lessons — from small realizations to big / company transforming epiphanies.',
+  },
+  {
+    title: 'Limitations with Storage and Memory in iOS Devices',
+    topic: 'Technology',
+    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/1-ar5erwssr7xhjlaa-7iova-1.jpeg',
+    description:
+      'We often face memory problems in apps running on very low available memory devices. Even if you develop for one version of iOS, devices vary widely.',
+  },
+  {
+    title: 'Entrepreneurs Wanted — Part 2',
+    topic: 'People',
+    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/entrepreneurs-part-2.png',
+    description:
+      'A long note (mostly because I can\'t stop once I start) — about 500 people in our company can vouch for that, but it is a must-read if you are...',
+  },
+  {
+    title: 'The Last Frontier for Consumer Internet',
+    topic: 'Technology',
+    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/consumer-internet.png',
+    description: 'The Last Frontier for Consumer Internet.',
+  },
+  {
+    title: 'Finding Diverse Food Lovers',
+    topic: 'Technology',
+    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/0-zxgezhjhbantbqjc.png',
+    description:
+      'It is very important to set the Target Group at initial level for a brand to become famous.',
+  },
+];
 
 const RebelSpirit = () => {
+  const [activeTopic, setActiveTopic] = useState(0);
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      setActiveTopic((prev) => (prev + 1) % heroTopics.length);
+    }, 1800);
+    return () => window.clearInterval(id);
+  }, []);
+
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-[#1b1b1b] text-white">
         <Header />
         <main className="pt-20">
-          {/* Hero Section */}
-          <section className="py-20 lg:py-32">
+          {/* Hero */}
+          <section className="py-16 lg:py-20">
             <div className="container mx-auto px-6 lg:px-12">
-              <SectionReveal>
-                <div className="max-w-3xl">
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+              <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+                <div className="space-y-4">
+                  <h1
+                    className="text-5xl md:text-6xl font-bold"
+                    style={{ WebkitTextStroke: '2px #b6b6b6', WebkitTextFillColor: 'transparent' }}
+                  >
                     Rebel Spirit
                   </h1>
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    Stories, insights, and learnings from our journey of building the world's largest internet restaurant company.
-                  </p>
+                  <div className="text-xl md:text-2xl text-[#d1d1d1] leading-relaxed">
+                    <div className="flex flex-wrap items-baseline gap-3">
+                      <span>Join us in our journey as we explore</span>
+                      <motion.span
+                        key={activeTopic}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.35 }}
+                        className="font-semibold text-[#c9c9c9]"
+                      >
+                        {heroTopics[activeTopic]}
+                      </motion.span>
+                    </div>
+                  </div>
                 </div>
-              </SectionReveal>
-            </div>
-          </section>
-
-          {/* Categories */}
-          <section className="py-8 border-y border-border">
-            <div className="container mx-auto px-6 lg:px-12">
-              <div className="flex flex-wrap gap-4">
-                {categories.map((category, index) => (
-                  <motion.button
-                    key={category}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                      index === 0
-                        ? 'bg-foreground text-background'
-                        : 'bg-card text-muted-foreground hover:text-foreground hover:bg-card/80'
-                    }`}
-                  >
-                    {category}
-                  </motion.button>
-                ))}
+                <div className="flex justify-end lg:justify-center">
+                  <img
+                    src="https://www.rebelfoods.com/images/rebel_book.png"
+                    alt="Rebel Spirit"
+                    className="max-w-[220px] md:max-w-[260px] lg:max-w-[280px] h-auto"
+                  />
+                </div>
               </div>
             </div>
           </section>
 
-          {/* Featured Post */}
-          <section className="py-20">
+          {/* Featured + Most Read */}
+          <section className="pb-14">
             <div className="container mx-auto px-6 lg:px-12">
-              <SectionReveal>
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                  <div className="relative aspect-video overflow-hidden rounded-xl">
-                    <img
-                      src={blogPosts[0].image}
-                      alt={blogPosts[0].title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <span className="inline-block px-3 py-1 text-xs font-medium bg-accent/20 text-accent rounded-full mb-4">
-                      {blogPosts[0].category}
-                    </span>
-                    <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                      {blogPosts[0].title}
-                    </h2>
-                    <p className="text-lg text-muted-foreground mb-6">
-                      {blogPosts[0].excerpt}
-                    </p>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
-                      <span>{blogPosts[0].date}</span>
-                      <span>•</span>
-                      <span>5 min read</span>
-                    </div>
-                    <a
-                      href="#"
-                      className="inline-flex items-center text-foreground font-medium hover:text-muted-foreground transition-colors"
-                    >
-                      Read More
-                      <span className="ml-2">→</span>
-                    </a>
-                  </div>
-                </div>
-              </SectionReveal>
-            </div>
-          </section>
-
-          {/* Blog Grid */}
-          <section className="py-20 bg-secondary/30">
-            <div className="container mx-auto px-6 lg:px-12">
-              <SectionReveal>
-                <h2 className="text-3xl font-bold text-foreground mb-12">
-                  Latest Articles
-                </h2>
-              </SectionReveal>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {blogPosts.slice(1).map((post, index) => (
-                  <motion.article
-                    key={post.title}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="group bg-card rounded-xl overflow-hidden hover:bg-card/80 transition-colors cursor-pointer"
-                  >
-                    <div className="aspect-video overflow-hidden">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    <div className="p-6">
-                      <span className="inline-block px-2 py-1 text-xs font-medium bg-accent/20 text-accent rounded-full mb-3">
-                        {post.category}
-                      </span>
-                      <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-accent transition-colors line-clamp-2">
-                        {post.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                        {post.excerpt}
-                      </p>
-                      <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                        <span>{post.date}</span>
-                        <span>•</span>
-                        <span>5 min read</span>
+              <div className="grid lg:grid-cols-12 gap-10">
+                <div className="lg:col-span-8 space-y-6">
+                  <h2 className="text-2xl font-semibold text-[#61c3a8]">Featured</h2>
+                  <div className="bg-[#222222] rounded-lg overflow-hidden border border-[#2f2f2f]">
+                    <div className="grid md:grid-cols-2 gap-0">
+                      <div className="bg-cover bg-center min-h-[260px]" style={{ backgroundImage: `url(${featuredMain.image})` }} />
+                      <div className="p-6 flex flex-col gap-3">
+                        <div className="flex items-center gap-3 text-sm">
+                          <span className="px-3 py-1 rounded-full bg-[#333] text-[#61c3a8] font-semibold">{featuredMain.topic}</span>
+                          <span className="text-[#a0a0a0]">{featuredMain.author}</span>
+                        </div>
+                        <h3 className="text-2xl font-bold text-white leading-tight">{featuredMain.title}</h3>
+                        <p className="text-[#c7c7c7] leading-relaxed text-base">{featuredMain.excerpt}</p>
                       </div>
                     </div>
-                  </motion.article>
-                ))}
-              </div>
+                  </div>
 
-              {/* Load More */}
-              <div className="text-center mt-12">
-                <button className="px-8 py-3 border border-border rounded-lg text-foreground font-medium hover:bg-card transition-colors">
-                  Load More Articles
-                </button>
+                  <div className="bg-[#1f1f1f] border border-[#2f2f2f] rounded-lg p-6">
+                    <h3 className="text-xl font-semibold text-[#6db1ff] mb-3">Subscribe to our learnings</h3>
+                    <form className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 items-center">
+                      <input
+                        type="email"
+                        placeholder="Email Address"
+                        className="px-4 py-3 bg-transparent border border-[#3a3a3a] rounded text-white placeholder:text-[#7a7a7a] focus:outline-none focus:ring-1 focus:ring-[#6db1ff]"
+                      />
+                      <button
+                        type="submit"
+                        className="px-6 py-3 bg-gradient-to-r from-[#61c3a8] to-[#3e9bff] text-white font-semibold rounded hover:opacity-90 transition-opacity"
+                      >
+                        Subscribe &gt;
+                      </button>
+                    </form>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-4 space-y-4">
+                  <h2 className="text-2xl font-semibold text-[#61c3a8]">Most Read</h2>
+                  <div className="space-y-3">
+                    {mostRead.map((post) => (
+                      <div key={post.title} className="flex gap-3 bg-[#1f1f1f] border border-[#2f2f2f] rounded p-3 hover:border-[#3a3a3a] transition-colors">
+                        <div className="w-20 h-20 flex-shrink-0 overflow-hidden rounded bg-[#2a2a2a]">
+                          <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs uppercase text-[#9c9c9c] font-semibold">{post.topic}</div>
+                          <div className="text-sm text-white leading-snug line-clamp-3">{post.title}</div>
+                          <div className="text-[11px] text-[#9c9c9c] mt-1">{post.author}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </section>
 
-          {/* Newsletter */}
-          <section className="py-20">
-            <div className="container mx-auto px-6 lg:px-12">
-              <SectionReveal>
-                <div className="max-w-2xl mx-auto text-center">
-                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                    Stay Updated
-                  </h2>
-                  <p className="text-lg text-muted-foreground mb-8">
-                    Subscribe to our newsletter for the latest insights from Rebel Foods
-                  </p>
-                  <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                    <input
-                      type="email"
-                      placeholder="Enter your email"
-                      className="flex-1 px-4 py-3 bg-card border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                    />
-                    <button
-                      type="submit"
-                      className="px-6 py-3 bg-foreground text-background font-medium rounded-lg hover:bg-foreground/90 transition-colors"
-                    >
-                      Subscribe
-                    </button>
-                  </form>
-                </div>
-              </SectionReveal>
+          {/* Topics + Stories */}
+          <section className="pb-16">
+            <div className="container mx-auto px-6 lg:px-12 space-y-8">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-[#e6b41a]">
+                {topicFilters.map((filter) => (
+                  <button
+                    key={filter}
+                    className={`px-3 py-1 rounded-full border border-transparent hover:border-[#e6b41a] transition-colors ${filter === 'All Topics' ? 'text-[#e6b41a]' : 'text-[#c9c9c9]'}`}
+                  >
+                    {filter}
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {storyCards.slice(0, 4).map((story) => (
+                  <div key={story.title} className="bg-[#1f1f1f] border border-[#2f2f2f] rounded overflow-hidden hover:border-[#3a3a3a] transition-colors">
+                    <div className="h-56 bg-cover bg-center" style={{ backgroundImage: `url(${story.image})` }} />
+                    <div className="p-4 space-y-2">
+                      <div className="text-xs uppercase text-[#8ec5ff] font-semibold">{story.topic}</div>
+                      <h3 className="text-lg font-semibold text-white leading-snug">{story.title}</h3>
+                      <p className="text-sm text-[#bdbdbd] leading-relaxed line-clamp-3">{story.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {storyCards.slice(4, 6).map((story) => (
+                  <div key={story.title} className="bg-[#1f1f1f] border border-[#2f2f2f] rounded overflow-hidden hover:border-[#3a3a3a] transition-colors">
+                    <div className="h-56 bg-cover bg-center" style={{ backgroundImage: `url(${story.image})` }} />
+                    <div className="p-4 space-y-2">
+                      <div className="text-xs uppercase text-[#8ec5ff] font-semibold">{story.topic}</div>
+                      <h3 className="text-lg font-semibold text-white leading-snug">{story.title}</h3>
+                      <p className="text-sm text-[#bdbdbd] leading-relaxed line-clamp-3">{story.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="text-center">
+                <a href="/blogs/all-topics" className="text-[#e6b41a] font-semibold hover:underline">See all &gt;</a>
+              </div>
             </div>
           </section>
         </main>
