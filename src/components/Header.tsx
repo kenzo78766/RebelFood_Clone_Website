@@ -15,7 +15,17 @@ interface NavItem {
   subItems?: SubItem[];
 }
 
-const navItems: NavItem[] = [
+const topicSubItems: SubItem[] = [
+  { label: 'Brand', href: '/blogs/topics/brand' },
+  { label: 'Business', href: '/blogs/topics/business' },
+  { label: 'Culinary', href: '/blogs/topics/culinary' },
+  { label: 'Design', href: '/blogs/topics/design' },
+  { label: 'Launcher', href: '/blogs/topics/launcher' },
+  { label: 'People', href: '/blogs/topics/people' },
+  { label: 'Technology', href: '/blogs/topics/technology' },
+];
+
+const baseNavItems: NavItem[] = [
   { label: 'What We Do', href: '/what-we-do' },
   { 
     label: 'Who We Are', 
@@ -60,6 +70,19 @@ const Header = () => {
   const [mobileExpandedItem, setMobileExpandedItem] = useState<string | null>(null);
   const closeTimerRef = useRef<number | null>(null);
   const location = useLocation();
+
+  // Dynamically inject "Topics" at the beginning if on Rebel Spirit
+  const isRebelSpiritPage = location.pathname.includes('/blogs') || location.pathname === '/rebel-spirit';
+  const navItems: NavItem[] = isRebelSpiritPage
+    ? [
+        { 
+          label: 'Topics', 
+          href: '#',
+          subItems: topicSubItems,
+        },
+        ...baseNavItems,
+      ]
+    : baseNavItems;
 
   const openDropdown = (label: string) => {
     if (closeTimerRef.current) {

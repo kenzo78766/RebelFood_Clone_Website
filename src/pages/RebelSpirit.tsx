@@ -12,22 +12,35 @@ const heroTopics = [
   'hungry aspirations',
 ];
 
-const featuredMain = {
-  title: 'Finding Diverse Food Lovers',
-  excerpt:
-    'So many people around the world. It is very important to set the Target Group at initial level for a brand to become famous.',
-  topic: 'Technology',
-  author: 'Sarvistha Yadav',
-  image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/0-zxgezhjhbantbqjc.png',
-};
-
-const mostRead = [
+// Featured posts: 1 main + 2 secondary
+const featuredPosts = [
+  {
+    title: 'Finding Diverse Food Lovers',
+    excerpt:
+      'So many people around the world. It is very important to set the Target Group at initial level for a brand to become famous.',
+    topic: 'Technology',
+    author: 'Sarvistha Yadav',
+    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/0-zxgezhjhbantbqjc.png',
+  },
   {
     title: 'How to build 1000 Restaurants in 24 months — The REBEL method!',
-    image: 'https://www.rebelfoods.com/uploads/blogs/thumbnails/the-rebelway.png',
+    excerpt: 'Our journey of rapid expansion and the strategies that made it possible.',
     topic: 'Business',
     author: 'Jaydeep Barman',
+    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/the-rebelway.png',
   },
+  {
+    title: 'The Slay Story',
+    excerpt:
+      'An inside peek into how Rebel opened its unique Operating System in Launcher Program. This is first hand account of Rebel and Dropkaffe team coming together to create SLAY.',
+    topic: 'Launcher',
+    author: 'Ankur Sharma',
+    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/whatsapp-image-2021-01-07-at-120641.jpeg',
+  },
+];
+
+// Most read posts
+const mostReadPosts = [
   {
     title: 'Why is Rebel Foods Hiring Super-talented Engineers?',
     image: 'https://www.rebelfoods.com/uploads/blogs/thumbnails/tech-stack.png',
@@ -35,20 +48,26 @@ const mostRead = [
     author: 'Jaydeep Barman',
   },
   {
-    title: 'Introducing Rebel Launcher: Launchpad for Entrepreneurs with Delightful Food Brands',
+    title: 'Introducing Rebel Launcher: Launchpad for Entrepreneurs',
     image: 'https://www.rebelfoods.com/uploads/blogs/thumbnails/rebel-launchpad.png',
     topic: 'Launcher',
     author: 'Vidyut Parashar',
   },
   {
-    title: 'The Slay Story',
-    image: 'https://www.rebelfoods.com/uploads/blogs/thumbnails/whatsapp-image-2021-01-07-at-120641.jpeg',
-    topic: 'Launcher',
-    author: 'Ankur Sharma',
+    title: 'Limitations with Storage and Memory in iOS Devices',
+    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/1-ar5erwssr7xhjlaa-7iova-1.jpeg',
+    topic: 'Technology',
+    author: 'Vishalkumar Chaudhari',
+  },
+  {
+    title: 'Entrepreneurs Wanted — Part 2',
+    image: 'https://www.rebelfoods.com/uploads/blogs/original_cover_images/0-zxgezhjhbantbqjc.png',
+    topic: 'People',
+    author: 'Founder',
   },
 ];
 
-const topicFilters = ['All Topics', 'Brand', 'Business', 'Culinary', 'Technology', 'Launcher'];
+const topicFilters = ['All Topics', 'Brand', 'Business', 'Culinary', 'Design', 'Launcher', 'People', 'Technology'];
 
 const storyCards = [
   {
@@ -147,107 +166,138 @@ const RebelSpirit = () => {
             </div>
           </section>
 
-          {/* Featured + Most Read */}
-          <section className="pb-14">
+          {/* Featured Section - 1 main + 2 secondary in grid */}
+          <section className="py-20">
             <div className="container mx-auto px-6 lg:px-12">
-              <div className="grid lg:grid-cols-12 gap-10">
-                <div className="lg:col-span-8 space-y-6">
-                  <h2 className="text-2xl font-semibold text-[#61c3a8]">Featured</h2>
-                  <div className="bg-[#222222] rounded-lg overflow-hidden border border-[#2f2f2f]">
-                    <div className="grid md:grid-cols-2 gap-0">
-                      <div className="bg-cover bg-center min-h-[260px]" style={{ backgroundImage: `url(${featuredMain.image})` }} />
-                      <div className="p-6 flex flex-col gap-3">
-                        <div className="flex items-center gap-3 text-sm">
-                          <span className="px-3 py-1 rounded-full bg-[#333] text-[#61c3a8] font-semibold">{featuredMain.topic}</span>
-                          <span className="text-[#a0a0a0]">{featuredMain.author}</span>
-                        </div>
-                        <h3 className="text-2xl font-bold text-white leading-tight">{featuredMain.title}</h3>
-                        <p className="text-[#c7c7c7] leading-relaxed text-base">{featuredMain.excerpt}</p>
+              <h2 className="text-2xl font-semibold text-[#61c3a8] mb-10">Featured</h2>
+
+              {/* Main featured post - full width */}
+              <div className="mb-10 bg-[#222222] rounded-lg overflow-hidden border border-[#2f2f2f]">
+                <div className="grid md:grid-cols-2 gap-0">
+                  <div
+                    className="bg-cover bg-center min-h-[320px] md:min-h-[420px]"
+                    style={{ backgroundImage: `url(${featuredPosts[0].image})` }}
+                  />
+                  <div className="p-8 flex flex-col justify-center gap-4">
+                    <div className="flex items-center gap-3 text-sm">
+                      <span className="px-3 py-1 rounded-full bg-[#333] text-[#61c3a8] font-semibold">
+                        {featuredPosts[0].topic}
+                      </span>
+                      <span className="text-[#a0a0a0]">{featuredPosts[0].author}</span>
+                    </div>
+                    <h3 className="text-3xl font-bold text-white leading-tight">{featuredPosts[0].title}</h3>
+                    <p className="text-[#c7c7c7] leading-relaxed text-lg">{featuredPosts[0].excerpt}</p>
+                    <button className="text-[#61c3a8] font-semibold hover:text-[#7dd4b8] transition-colors w-fit mt-2">
+                      Read More &gt;
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Secondary featured posts - 2 column grid */}
+              <div className="grid md:grid-cols-2 gap-6 mb-10">
+                {featuredPosts.slice(1).map((post) => (
+                  <div key={post.title} className="bg-[#222222] rounded-lg overflow-hidden border border-[#2f2f2f]">
+                    <div
+                      className="bg-cover bg-center h-56"
+                      style={{ backgroundImage: `url(${post.image})` }}
+                    />
+                    <div className="p-5 space-y-3">
+                      <div className="flex items-center gap-3 text-sm">
+                        <span className="px-3 py-1 rounded-full bg-[#333] text-[#61c3a8] font-semibold">
+                          {post.topic}
+                        </span>
+                        <span className="text-[#a0a0a0] text-xs">{post.author}</span>
                       </div>
+                      <h3 className="text-xl font-bold text-white leading-tight">{post.title}</h3>
+                      <p className="text-[#bdbdbd] text-sm line-clamp-2">{post.excerpt}</p>
+                      <button className="text-[#61c3a8] font-semibold text-sm hover:text-[#7dd4b8] transition-colors">
+                        Read More &gt;
+                      </button>
                     </div>
                   </div>
+                ))}
+              </div>
 
-                  <div className="bg-[#1f1f1f] border border-[#2f2f2f] rounded-lg p-6">
-                    <h3 className="text-xl font-semibold text-[#6db1ff] mb-3">Subscribe to our learnings</h3>
-                    <form className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 items-center">
-                      <input
-                        type="email"
-                        placeholder="Email Address"
-                        className="px-4 py-3 bg-transparent border border-[#3a3a3a] rounded text-white placeholder:text-[#7a7a7a] focus:outline-none focus:ring-1 focus:ring-[#6db1ff]"
-                      />
-                      <button
-                        type="submit"
-                        className="px-6 py-3 bg-gradient-to-r from-[#61c3a8] to-[#3e9bff] text-white font-semibold rounded hover:opacity-90 transition-opacity"
-                      >
-                        Subscribe &gt;
-                      </button>
-                    </form>
-                  </div>
-                </div>
+              {/* Subscribe Block */}
+              <div className="bg-[#1f1f1f] border border-[#2f2f2f] rounded-lg p-8 mb-12">
+                <h3 className="text-2xl font-semibold text-[#6db1ff] mb-4">Subscribe to our learnings</h3>
+                <form className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3 items-center">
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    className="px-4 py-3 bg-transparent border border-[#3a3a3a] rounded text-white placeholder:text-[#7a7a7a] focus:outline-none focus:ring-1 focus:ring-[#6db1ff]"
+                  />
+                  <button
+                    type="submit"
+                    className="px-6 py-3 bg-gradient-to-r from-[#61c3a8] to-[#3e9bff] text-white font-semibold rounded hover:opacity-90 transition-opacity"
+                  >
+                    Subscribe &gt;
+                  </button>
+                </form>
+              </div>
 
-                <div className="lg:col-span-4 space-y-4">
-                  <h2 className="text-2xl font-semibold text-[#61c3a8]">Most Read</h2>
-                  <div className="space-y-3">
-                    {mostRead.map((post) => (
-                      <div key={post.title} className="flex gap-3 bg-[#1f1f1f] border border-[#2f2f2f] rounded p-3 hover:border-[#3a3a3a] transition-colors">
-                        <div className="w-20 h-20 flex-shrink-0 overflow-hidden rounded bg-[#2a2a2a]">
-                          <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="text-xs uppercase text-[#9c9c9c] font-semibold">{post.topic}</div>
-                          <div className="text-sm text-white leading-snug line-clamp-3">{post.title}</div>
-                          <div className="text-[11px] text-[#9c9c9c] mt-1">{post.author}</div>
-                        </div>
+              {/* Most Read Section */}
+              <h2 className="text-2xl font-semibold text-[#61c3a8] mb-6">Most Read</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+                {mostReadPosts.map((post) => (
+                  <div
+                    key={post.title}
+                    className="flex flex-col bg-[#1f1f1f] border border-[#2f2f2f] rounded hover:border-[#3a3a3a] transition-colors overflow-hidden"
+                  >
+                    <div className="h-40 bg-cover bg-center" style={{ backgroundImage: `url(${post.image})` }} />
+                    <div className="p-4 flex flex-col gap-2 flex-grow">
+                      <div className="text-xs uppercase text-[#9c9c9c] font-semibold">{post.topic}</div>
+                      <div className="text-sm text-white font-semibold leading-snug line-clamp-3 flex-grow">
+                        {post.title}
                       </div>
-                    ))}
+                      <div className="text-[11px] text-[#9c9c9c]">{post.author}</div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </section>
 
           {/* Topics + Stories */}
-          <section className="pb-16">
-            <div className="container mx-auto px-6 lg:px-12 space-y-8">
-              <div className="flex flex-wrap items-center gap-4 text-sm text-[#e6b41a]">
+          <section className="py-16 border-t border-[#2f2f2f]">
+            <div className="container mx-auto px-6 lg:px-12 space-y-10">
+              <div className="flex flex-wrap items-center gap-3 text-sm text-[#e6b41a]">
                 {topicFilters.map((filter) => (
                   <button
                     key={filter}
-                    className={`px-3 py-1 rounded-full border border-transparent hover:border-[#e6b41a] transition-colors ${filter === 'All Topics' ? 'text-[#e6b41a]' : 'text-[#c9c9c9]'}`}
+                    className={`px-4 py-2 rounded-full border border-transparent hover:border-[#e6b41a] transition-colors ${
+                      filter === 'All Topics' ? 'text-[#e6b41a]' : 'text-[#c9c9c9]'
+                    }`}
                   >
                     {filter}
                   </button>
                 ))}
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6">
-                {storyCards.slice(0, 4).map((story) => (
-                  <div key={story.title} className="bg-[#1f1f1f] border border-[#2f2f2f] rounded overflow-hidden hover:border-[#3a3a3a] transition-colors">
-                    <div className="h-56 bg-cover bg-center" style={{ backgroundImage: `url(${story.image})` }} />
-                    <div className="p-4 space-y-2">
+              <div className="grid md:grid-cols-3 gap-6">
+                {storyCards.map((story) => (
+                  <div
+                    key={story.title}
+                    className="bg-[#1f1f1f] border border-[#2f2f2f] rounded overflow-hidden hover:border-[#3a3a3a] transition-colors"
+                  >
+                    <div
+                      className="h-48 bg-cover bg-center"
+                      style={{ backgroundImage: `url(${story.image})` }}
+                    />
+                    <div className="p-5 space-y-3">
                       <div className="text-xs uppercase text-[#8ec5ff] font-semibold">{story.topic}</div>
-                      <h3 className="text-lg font-semibold text-white leading-snug">{story.title}</h3>
-                      <p className="text-sm text-[#bdbdbd] leading-relaxed line-clamp-3">{story.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                {storyCards.slice(4, 6).map((story) => (
-                  <div key={story.title} className="bg-[#1f1f1f] border border-[#2f2f2f] rounded overflow-hidden hover:border-[#3a3a3a] transition-colors">
-                    <div className="h-56 bg-cover bg-center" style={{ backgroundImage: `url(${story.image})` }} />
-                    <div className="p-4 space-y-2">
-                      <div className="text-xs uppercase text-[#8ec5ff] font-semibold">{story.topic}</div>
-                      <h3 className="text-lg font-semibold text-white leading-snug">{story.title}</h3>
-                      <p className="text-sm text-[#bdbdbd] leading-relaxed line-clamp-3">{story.description}</p>
+                      <h3 className="text-lg font-semibold text-white leading-snug line-clamp-2">{story.title}</h3>
+                      <p className="text-sm text-[#bdbdbd] leading-relaxed line-clamp-2">{story.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
               <div className="text-center">
-                <a href="/blogs/all-topics" className="text-[#e6b41a] font-semibold hover:underline">See all &gt;</a>
+                <a href="/blogs/all-topics" className="text-[#e6b41a] font-semibold hover:underline">
+                  See all &gt;
+                </a>
               </div>
             </div>
           </section>
