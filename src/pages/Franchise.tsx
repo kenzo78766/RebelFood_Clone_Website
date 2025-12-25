@@ -156,68 +156,33 @@ const Franchise = () => {
 
         {/* Content Sections */}
         <section className="pb-16">
-          <div className="container-fluid px-0">
+          <div className="container mx-auto px-6 lg:px-12">
             {sections.map((section, index) => (
-              <div key={section.title} className={`row mx-0 ${index > 0 ? 'mt-12 md:mt-16' : ''}`}>
-                {section.imageLeft ? (
-                  <>
-                    {/* Image on LEFT */}
-                    <div className="col-lg-6 px-0">
-                      <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.8 }}
-                      >
-                        <img src={section.image} alt={section.title} className="w-full h-auto" />
-                      </motion.div>
-                    </div>
-                    {/* Text on RIGHT */}
-                    <div className="col-lg-6 px-0">
-                      <motion.div
-                        className="px-6 py-10 md:px-10 md:py-12 lg:px-14 lg:py-16 flex flex-col justify-center h-full"
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.8 }}
-                      >
-                        <div className="bg-[#d4a017] rounded-[10px] p-4 md:p-5 mb-5">
-                          <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white mb-0">{section.title}</h3>
-                        </div>
-                        <p className="text-sm md:text-base text-white/90 leading-relaxed">{section.description}</p>
-                      </motion.div>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    {/* Text on LEFT */}
-                    <div className="col-lg-6 px-0 order-2 order-lg-1">
-                      <motion.div
-                        className="px-6 py-10 md:px-10 md:py-12 lg:px-14 lg:py-16 flex flex-col justify-center h-full"
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.8 }}
-                      >
-                        <div className="bg-[#d4a017] rounded-[10px] p-4 md:p-5 mb-5">
-                          <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white mb-0">{section.title}</h3>
-                        </div>
-                        <p className="text-sm md:text-base text-white/90 leading-relaxed">{section.description}</p>
-                      </motion.div>
-                    </div>
-                    {/* Image on RIGHT */}
-                    <div className="col-lg-6 px-0 order-1 order-lg-2">
-                      <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.8 }}
-                      >
-                        <img src={section.image} alt={section.title} className="w-full h-auto" />
-                      </motion.div>
-                    </div>
-                  </>
-                )}
+              <div key={section.title} className={`grid lg:grid-cols-2 items-center gap-10 ${index > 0 ? 'mt-16' : ''}`}>
+                {/* Image */}
+                <motion.div
+                  className={`${section.imageLeft ? '' : 'order-2 lg:order-2'} w-full`}
+                  initial={{ opacity: 0, x: section.imageLeft ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <img src={section.image} alt={section.title} className="w-full h-auto" />
+                </motion.div>
+
+                {/* Text */}
+                <motion.div
+                  className={`${section.imageLeft ? '' : 'order-1 lg:order-1'} w-full px-2`}
+                  initial={{ opacity: 0, x: section.imageLeft ? 50 : -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <div className="inline-flex rounded-[10px] bg-[#d4a017] px-5 py-3 mb-5">
+                    <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-white m-0">{section.title}</h3>
+                  </div>
+                  <p className="text-sm md:text-base text-white/90 leading-relaxed max-w-xl">{section.description}</p>
+                </motion.div>
               </div>
             ))}
           </div>
@@ -232,21 +197,21 @@ const Franchise = () => {
             >
               We offer this Franchise models
             </h2>
-            <div className="row justify-content-center">
-              <div className="col-md-6 col-lg-5">
+            <div className="flex justify-center">
+              <div className="w-full max-w-[360px] sm:max-w-[420px]">
                 <div className="mb-6">
-                  <div className="border-4 border-[#fbd700] overflow-hidden">
+                  <div className="border-4 border-[#fbd700] overflow-hidden rounded-md">
                     <img src="https://www.rebelfoods.com/images/dine_in_cloud.jpg" alt="Franchise Model" className="w-full" />
                   </div>
-                  <div className="bg-[#d0333a] text-white text-center px-4 py-5">
-                    <h3 className="text-base md:text-lg font-bold m-0">Dine in (Ovenstory) + Cloud Kitchen Of all Rebel Brands</h3>
+                  <div className="bg-[#d0333a] text-white text-center px-3 py-3">
+                    <h3 className="text-sm md:text-base font-bold m-0">Dine in (Ovenstory) + Cloud Kitchen Of all Rebel Brands</h3>
                   </div>
-                  <div className="bg-[#3c3c3c] text-white text-center px-4 py-5 space-y-3">
+                  <div className="bg-[#3c3c3c] text-white text-center px-3 py-4 space-y-2">
                     {franchiseModelDetails.map((detail, idx) => (
                       <div key={idx}>
-                        <p className="text-xs md:text-sm mb-1">{detail.label}</p>
-                        <p className="text-[#fbd700] font-bold text-sm md:text-base">{detail.value}</p>
-                        {idx < franchiseModelDetails.length - 1 && <hr className="border-white/30 my-3" />}
+                        <p className="text-[11px] md:text-xs mb-1">{detail.label}</p>
+                        <p className="text-[#fbd700] font-bold text-xs md:text-sm">{detail.value}</p>
+                        {idx < franchiseModelDetails.length - 1 && <hr className="border-white/30 my-2" />}
                       </div>
                     ))}
                   </div>
@@ -265,8 +230,8 @@ const Franchise = () => {
             >
               Franchise enquiries
             </h2>
-            <div className="row">
-              <div className="col-md-6 mb-6 mb-md-0">
+            <div className="grid lg:grid-cols-2 gap-10 items-start">
+              <div>
                 <p className="text-white/80 text-base md:text-lg mb-4 leading-relaxed">
                   Please fill in this quick form if you are interested in operating an Ovenstory Pizza store.
                 </p>
@@ -274,7 +239,7 @@ const Franchise = () => {
                   You can also mention it in case you already have a property available. High street locations, Transit areas (Highways, Metros, Railway Stations) and shopping malls are high footfall locations for offline stores.
                 </p>
               </div>
-              <div className="col-md-6">
+              <div>
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <input
                     type="text"
@@ -284,8 +249,8 @@ const Franchise = () => {
                     required
                     onChange={handleInputChange}
                   />
-                  <div className="row">
-                    <div className="col-sm-6">
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <div>
                       <input
                         type="text"
                         name="contact"
@@ -295,7 +260,7 @@ const Franchise = () => {
                         onChange={handleInputChange}
                       />
                     </div>
-                    <div className="col-sm-6">
+                    <div>
                       <input
                         type="text"
                         name="cityState"
@@ -340,13 +305,13 @@ const Franchise = () => {
             >
               FAQ's
             </h2>
-            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-              <div className="lg:w-1/5">
+            <div className="grid lg:grid-cols-[0.25fr_0.75fr] gap-6 lg:gap-8">
+              <div>
                 <div className="bg-[#3c3c3c] rounded-lg p-4 text-center">
                   <span className="text-white font-semibold text-sm md:text-base">Franchise</span>
                 </div>
               </div>
-              <div className="lg:w-4/5 space-y-3">
+              <div className="space-y-3">
                 {faqs.map((faq, index) => (
                   <div key={index} className="bg-[#3c3c3c] rounded-lg overflow-hidden">
                     <button

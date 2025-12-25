@@ -164,13 +164,13 @@ const WhatWeDo = () => {
             <div className="container mx-auto px-6 lg:px-12">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <SectionReveal>
-                  <div className="max-w-xl">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-coral to-accent-coral" style={{WebkitTextStroke: '2px #ff6a3d', WebkitTextFillColor: 'transparent'}}>One Kitchen</span>
+                  <div className="max-w-2xl mx-auto lg:mx-0">
+                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-7 leading-[1.05] tracking-normal">
+                      <span className="text-transparent md:whitespace-nowrap" style={{WebkitTextStroke: '4px #ff5a3d', WebkitTextFillColor: 'transparent'}}>One Kitchen</span>
                       <br />
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-coral to-accent-coral" style={{WebkitTextStroke: '2px #ff6a3d', WebkitTextFillColor: 'transparent'}}>Multiple Brands</span>
+                      <span className="text-transparent md:whitespace-nowrap" style={{WebkitTextStroke: '4px #ff5a3d', WebkitTextFillColor: 'transparent'}}>Multiple Brands</span>
                     </h1>
-                    <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+                    <p className="text-lg md:text-xl text-muted-foreground leading-relaxed text-left">
                       With a common goal to identify different food patterns of the consumer - lunch, dinner, snacks, weekend gatherings and all such food missions, our brands are born as an answer to these food missions.
                     </p>
                   </div>
@@ -181,7 +181,7 @@ const WhatWeDo = () => {
                     <img
                       src={whatWeDoHeroImg}
                       alt="What we do"
-                      className="w-full h-auto object-contain"
+                      className="w-full h-auto object-contain mx-auto max-w-[280px] md:max-w-[340px] lg:max-w-[380px]"
                       loading="lazy"
                     />
                   </div>
