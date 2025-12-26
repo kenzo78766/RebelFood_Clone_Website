@@ -9,11 +9,6 @@ interface SubItem {
   href: string;
 }
 
-interface NavItem {
-  label: string;
-  href: string;
-  subItems?: SubItem[];
-}
 
 const topicSubItems: SubItem[] = [
   { label: 'Brand', href: '/blogs/topics/brand' },
@@ -25,11 +20,19 @@ const topicSubItems: SubItem[] = [
   { label: 'Technology', href: '/blogs/topics/technology' },
 ];
 
+interface NavItem {
+  label: string;
+  href: string;
+  subItems?: SubItem[];
+  colorClass?: string;
+}
+
 const baseNavItems: NavItem[] = [
-  { label: 'What We Do', href: '/what-we-do' },
+  { label: 'What We Do', href: '/what-we-do', colorClass: 'red-txt' },
   { 
     label: 'Who We Are', 
     href: '/who-we-are',
+    colorClass: 'blue-txt',
     subItems: [
       { label: 'Rebel Team', href: '/rebel-team' },
       { label: 'Working at Rebel', href: '/working-at-rebel' },
@@ -38,15 +41,17 @@ const baseNavItems: NavItem[] = [
   { 
     label: 'Be a Rebel', 
     href: '/be-a-rebel',
+    colorClass: 'yellow-txt',
     subItems: [
       { label: 'Join our team', href: '/join-our-team' },
       { label: 'Launcher', href: '/launcher' },
     ]
   },
-  { label: 'Franchise', href: '/franchise' },
+  { label: 'Franchise', href: '/franchise', colorClass: 'red-txt' },
   { 
     label: 'Rebel Spirit', 
     href: '/rebel-spirit',
+    colorClass: 'orange-txt',
     subItems: [
       { label: 'Our Blogs', href: '/blogs' },
       { label: 'Medium Stories', href: '/medium-stories' },
@@ -54,12 +59,13 @@ const baseNavItems: NavItem[] = [
   },
   { 
     label: 'About Rebel', 
-    href: '/about',
+    href: '/news',
+    colorClass: 'orange-txt',
     subItems: [
-      { label: 'Rebel News', href: '/news' },
       { label: 'Press Release', href: '/press-release' },
+      { label: 'Annual Return', href: '/annual-return' },
+      { label: 'Policies', href: '/policies' },
       { label: 'Events', href: '/events' },
-      { label: 'FAQ', href: '/faq' },
     ]
   },
 ];
@@ -117,7 +123,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
-            <img src={rebelLogo} alt="Rebel Foods" className="h-6 w-auto" />
+            <img src={rebelLogo} alt="Rebel Foods" className="h-8 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -138,11 +144,7 @@ const Header = () => {
               >
                 <Link
                   to={item.href}
-                  className={`group flex items-center gap-1 text-sm font-medium transition-colors duration-200 py-6 ${
-                    location.pathname === item.href
-                      ? 'text-foreground'
-                      : 'text-muted-foreground hover:text-foreground'
-                  }`}
+                  className={`nav-link ${item.colorClass || ''} slight-gray-third-text group flex items-center gap-1 text-base font-semibold py-6`}
                 >
                   <span className="relative">
                     {item.label}
@@ -150,7 +152,7 @@ const Header = () => {
                   </span>
                   {item.subItems && (
                     <ChevronDown 
-                      size={14} 
+                      size={16} 
                       className={`transition-transform duration-200 ${
                         activeDropdown === item.label ? 'rotate-180' : ''
                       }`} 
@@ -177,7 +179,12 @@ const Header = () => {
                             <Link
                               key={subItem.label}
                               to={subItem.href}
-                              className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors duration-200"
+                              className={`block px-4 py-3 text-base text-foreground hover:bg-secondary/50 transition-colors duration-200 ${
+                                item.colorClass === 'red-txt' ? 'sub-item-red' :
+                                item.colorClass === 'blue-txt' ? 'sub-item-blue' :
+                                item.colorClass === 'yellow-txt' ? 'sub-item-yellow' :
+                                item.colorClass === 'orange-txt' ? 'sub-item-orange' : ''
+                              }`}
                               onClick={() => setActiveDropdown(null)}
                             >
                               {subItem.label}

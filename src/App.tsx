@@ -18,6 +18,8 @@ import Careers from "./pages/Careers";
 import News from "./pages/News";
 import PressRelease from "./pages/PressRelease";
 import Events from "./pages/Events";
+import AnnualReturn from "./pages/AnnualReturn";
+import Policies from "./pages/Policies";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 import Launcher from "./pages/Launcher";
@@ -48,6 +50,8 @@ const AnimatedRoutes = () => {
         <Route path="/careers" element={<Careers />} />
         <Route path="/news" element={<News />} />
         <Route path="/press-release" element={<PressRelease />} />
+        <Route path="/annual-return" element={<AnnualReturn />} />
+        <Route path="/policies" element={<Policies />} />
         <Route path="/events" element={<Events />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="*" element={<NotFound />} />

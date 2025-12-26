@@ -4,6 +4,89 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom CSS Classes */
+.orange-text {
+  color: #e8590c;
+}
+
+.zoom-in {
+  -webkit-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+}
+
+.zoom-in:hover {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.press-release-heading {
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+/* Navigation Link Colors */
+.nav-link {
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  transform: scale(1.2);
+}
+
+.red-txt {
+  color: #dc2626;
+}
+
+.nav-link.red-txt:hover {
+  color: #dc2626 !important;
+}
+
+.blue-txt {
+  color: #2563eb;
+}
+
+.nav-link.blue-txt:hover {
+  color: #2563eb !important;
+}
+
+.yellow-txt {
+  color: #eab308;
+}
+
+.nav-link.yellow-txt:hover {
+  color: #eab308 !important;
+}
+
+.orange-txt {
+  color: #e8590c;
+}
+
+.nav-link.orange-txt:hover {
+  color: #e8590c !important;
+}
+
+.slight-gray-third-text {
+  color: #9ca3af;
+}
+
+/* Sub-item hover colors */
+.sub-item-red:hover {
+  color: #dc2626 !important;
+}
+
+.sub-item-blue:hover {
+  color: #2563eb !important;
+}
+
+.sub-item-yellow:hover {
+  color: #eab308 !important;
+}
+
+.sub-item-orange:hover {
+  color: #e8590c !important;
+}
+
 @layer base {
   :root {
     /* Rebel Foods Dark Theme */
