@@ -169,64 +169,51 @@ const RebelSpirit = () => {
           {/* Featured Section with Most Read on the side */}
           <section className="py-12 lg:py-16 bg-[#202020]">
             <div className="container mx-auto px-6 lg:px-16 max-w-7xl">
-              <div className="grid lg:grid-cols-[1.6fr_1fr] gap-10">
+              <div className="grid lg:grid-cols-[1.5fr_1fr] gap-10">
                 {/* Left: Featured */}
                 <div>
-                  <h2 className="text-xl font-semibold mb-6 text-white">Featured</h2>
+                  <h2 className="text-lg font-medium mb-5 text-[#5fd4ba]">Featured</h2>
 
-                  {/* Main featured post */}
-                  <div className="mb-6 bg-[#2a2a2a] rounded overflow-hidden">
-                    <div className="grid md:grid-cols-2 gap-0">
-                      <div
-                        className="bg-cover bg-center min-h-[240px] md:min-h-[300px]"
-                        style={{ backgroundImage: `url(${featuredPosts[0].image})` }}
-                      />
-                      <div className="p-6 flex flex-col justify-center gap-3">
-                        <div className="flex items-center gap-2 text-xs">
-                          <span className="px-2.5 py-1 rounded bg-[#333] text-[#5fd4ba] font-medium">
-                            {featuredPosts[0].topic}
-                          </span>
-                          <span className="text-[#999]">{featuredPosts[0].author}</span>
-                        </div>
-                        <h3 className="text-xl font-semibold text-white leading-snug">{featuredPosts[0].title}</h3>
-                        <p className="text-[#bbb] text-sm leading-relaxed">{featuredPosts[0].excerpt}</p>
-                      </div>
+                  {/* Main featured card - Large with image and text side by side */}
+                  <div className="mb-5 bg-[#2a2a2a] rounded overflow-hidden">
+                    <div
+                      className="bg-cover bg-center h-64"
+                      style={{ backgroundImage: `url(${featuredPosts[0].image})` }}
+                    />
+                    <div className="p-5">
+                      <h3 className="text-xl font-semibold text-white leading-tight mb-2">{featuredPosts[0].title}</h3>
+                      <p className="text-[#aaa] text-sm leading-relaxed">{featuredPosts[0].excerpt}</p>
                     </div>
                   </div>
 
-                  {/* Secondary featured posts */}
-                  <div className="grid md:grid-cols-2 gap-4 mb-6">
+                  {/* Three medium cards in a row - Image on top, text below */}
+                  <div className="grid grid-cols-3 gap-4 mb-5">
                     {featuredPosts.slice(1).map((post) => (
-                      <div key={post.title} className="bg-[#2a2a2a] rounded overflow-hidden">
+                      <div key={post.title} className="group cursor-pointer">
                         <div
-                          className="bg-cover bg-center h-44"
+                          className="bg-cover bg-center h-36 rounded mb-3"
                           style={{ backgroundImage: `url(${post.image})` }}
                         />
-                        <div className="p-4 space-y-2">
-                          <div className="flex items-center gap-2 text-xs">
-                            <span className="px-2.5 py-1 rounded bg-[#333] text-[#5fd4ba] font-medium">
-                              {post.topic}
-                            </span>
-                            <span className="text-[#999]">{post.author}</span>
-                          </div>
-                          <h3 className="text-base font-semibold text-white leading-snug line-clamp-2">{post.title}</h3>
-                        </div>
+                        <h3 className="text-sm font-medium text-white leading-tight group-hover:text-[#5fd4ba] transition-colors">
+                          {post.title}
+                        </h3>
+                        <p className="text-xs text-[#999] mt-1">{post.excerpt}</p>
                       </div>
                     ))}
                   </div>
 
                   {/* Subscribe Block */}
-                  <div className="bg-[#2a2a2a] rounded p-6">
-                    <h3 className="text-lg font-semibold text-[#6db1ff] mb-3">Subscribe to our learnings</h3>
-                    <form className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-2 items-center">
+                  <div className="bg-[#2a2a2a] rounded p-5">
+                    <h3 className="text-base font-semibold text-[#6db1ff] mb-3">Subscribe to our learnings</h3>
+                    <form className="flex gap-2">
                       <input
                         type="email"
                         placeholder="Email Address"
-                        className="px-4 py-2.5 bg-[#1b1b1b] border border-[#3a3a3a] rounded text-white text-sm placeholder:text-[#777] focus:outline-none focus:ring-1 focus:ring-[#6db1ff]"
+                        className="flex-1 px-4 py-2 bg-[#1b1b1b] border border-[#3a3a3a] rounded text-white text-sm placeholder:text-[#666] focus:outline-none focus:border-[#6db1ff]"
                       />
                       <button
                         type="submit"
-                        className="px-5 py-2.5 bg-gradient-to-r from-[#61c3a8] to-[#3e9bff] text-white text-sm font-medium rounded hover:opacity-90 transition-opacity"
+                        className="px-5 py-2 bg-gradient-to-r from-[#61c3a8] to-[#3e9bff] text-white text-sm font-medium rounded hover:opacity-90 transition-opacity whitespace-nowrap"
                       >
                         Subscribe →
                       </button>
@@ -235,25 +222,24 @@ const RebelSpirit = () => {
                 </div>
 
                 {/* Right: Most Read */}
-                <div>
-                  <h2 className="text-xl font-semibold mb-6 text-white">Most Read</h2>
-                  <div className="space-y-4">
+                <div className="lg:block hidden">
+                  <h2 className="text-lg font-medium mb-5 text-[#5fd4ba]">Most Read</h2>
+                  <div className="space-y-3">
                     {mostReadPosts.map((post) => (
                       <div
                         key={post.title}
-                        className="flex gap-4 bg-[#2a2a2a] rounded overflow-hidden p-4 hover:bg-[#303030] transition-colors"
+                        className="bg-[#2a2a2a] rounded p-3 hover:bg-[#303030] transition-colors cursor-pointer"
                       >
-                        <div
-                          className="w-32 h-24 flex-shrink-0 bg-cover bg-center rounded"
-                          style={{ backgroundImage: `url(${post.image})` }}
-                        />
-                        <div className="flex flex-col gap-1.5 flex-grow min-w-0">
-                          <div className="text-xs uppercase text-[#999] font-medium">{post.topic}</div>
-                          <h3 className="text-sm text-white font-semibold leading-snug line-clamp-2">
-                            {post.title}
-                          </h3>
-                          <div className="text-xs text-[#999] mt-auto">{post.author}</div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xs px-2 py-0.5 bg-[#333] text-[#999] rounded">{post.topic}</span>
+                          <span className="text-xs text-[#666]">{post.author}</span>
                         </div>
+                        <h3 className="text-sm text-white font-medium leading-snug mb-1">
+                          {post.title}
+                        </h3>
+                        <p className="text-xs text-[#999] line-clamp-2">
+                          How technology company is solving the biggest problems across food for the consumers
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -263,42 +249,125 @@ const RebelSpirit = () => {
           </section>
 
           {/* Topics + Stories */}
-          <section className="py-12 lg:py-16">
+          <section className="py-12 lg:py-16 border-t border-[#2f2f2f]">
             <div className="container mx-auto px-6 lg:px-16 max-w-7xl space-y-8">
-              {/* Topic Filter Tabs */}
-              <div className="flex items-center gap-1 overflow-x-auto pb-2">
-                {topicFilters.map((filter, idx) => (
-                  <button
-                    key={filter}
-                    className={`px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors ${
-                      idx === 0
-                        ? 'text-[#e6b41a] border-b-2 border-[#e6b41a]'
-                        : 'text-[#999] hover:text-[#ddd]'
-                    }`}
-                  >
-                    {filter}
-                  </button>
-                ))}
+              {/* Topic Filter Tabs with Navigation Arrows */}
+              <div className="flex items-center gap-4">
+                <button className="text-[#999] hover:text-white transition-colors">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <div className="flex items-center gap-1 overflow-x-auto flex-1">
+                  {topicFilters.map((filter, idx) => (
+                    <button
+                      key={filter}
+                      className={`px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors ${
+                        idx === 0
+                          ? 'text-[#e6b41a]'
+                          : 'text-[#999] hover:text-[#ddd]'
+                      }`}
+                    >
+                      {filter}
+                    </button>
+                  ))}
+                </div>
+                <button className="text-[#999] hover:text-white transition-colors">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
 
-              {/* Story Cards Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {storyCards.map((story) => (
+              {/* Story Cards Grid - Irregular Layout matching screenshot */}
+              <div className="space-y-6">
+                {/* First row - 2 cards */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  {storyCards.slice(0, 2).map((story) => (
+                    <div
+                      key={story.title}
+                      className="bg-[#2a2a2a] rounded overflow-hidden hover:bg-[#303030] transition-colors cursor-pointer"
+                    >
+                      <div
+                        className="h-48 bg-cover bg-center"
+                        style={{ backgroundImage: `url(${story.image})` }}
+                      />
+                      <div className="p-5 space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs px-2 py-0.5 bg-[#333] text-[#999] rounded">{story.topic}</span>
+                          <span className="text-xs text-[#666]">Jaydeep Barman</span>
+                        </div>
+                        <h3 className="text-base font-semibold text-white leading-snug">{story.title}</h3>
+                        <p className="text-sm text-[#999] leading-relaxed line-clamp-2">{story.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Second row - 1 card centered */}
+                <div className="grid md:grid-cols-2 gap-6">
                   <div
-                    key={story.title}
                     className="bg-[#2a2a2a] rounded overflow-hidden hover:bg-[#303030] transition-colors cursor-pointer"
                   >
                     <div
-                      className="h-44 bg-cover bg-center"
-                      style={{ backgroundImage: `url(${story.image})` }}
+                      className="h-48 bg-cover bg-center"
+                      style={{ backgroundImage: `url(${storyCards[2].image})` }}
                     />
                     <div className="p-5 space-y-2">
-                      <div className="text-xs uppercase text-[#8ec5ff] font-medium">{story.topic}</div>
-                      <h3 className="text-base font-semibold text-white leading-snug line-clamp-2">{story.title}</h3>
-                      <p className="text-sm text-[#aaa] leading-relaxed line-clamp-2">{story.description}</p>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs px-2 py-0.5 bg-[#333] text-[#999] rounded">{storyCards[2].topic}</span>
+                        <span className="text-xs text-[#666]">Ankur Sharma</span>
+                      </div>
+                      <h3 className="text-base font-semibold text-white leading-snug">{storyCards[2].title}</h3>
+                      <p className="text-sm text-[#999] leading-relaxed line-clamp-2">{storyCards[2].description}</p>
                     </div>
                   </div>
-                ))}
+                </div>
+
+                {/* Third row - 2 cards */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  {storyCards.slice(3, 5).map((story) => (
+                    <div
+                      key={story.title}
+                      className="bg-[#2a2a2a] rounded overflow-hidden hover:bg-[#303030] transition-colors cursor-pointer"
+                    >
+                      <div
+                        className="h-48 bg-cover bg-center"
+                        style={{ backgroundImage: `url(${story.image})` }}
+                      />
+                      <div className="p-5 space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs px-2 py-0.5 bg-[#333] text-[#999] rounded">{story.topic}</span>
+                          <span className="text-xs text-[#666]">Krishna Chaitanya</span>
+                        </div>
+                        <h3 className="text-base font-semibold text-white leading-snug">{story.title}</h3>
+                        <p className="text-sm text-[#999] leading-relaxed line-clamp-2">{story.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Fourth row - 2 cards */}
+                {storyCards.length > 5 && (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div
+                      className="bg-[#2a2a2a] rounded overflow-hidden hover:bg-[#303030] transition-colors cursor-pointer"
+                    >
+                      <div
+                        className="h-48 bg-cover bg-center"
+                        style={{ backgroundImage: `url(${storyCards[5].image})` }}
+                      />
+                      <div className="p-5 space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs px-2 py-0.5 bg-[#333] text-[#999] rounded">{storyCards[5].topic}</span>
+                          <span className="text-xs text-[#666]">Sarvistha Yadav</span>
+                        </div>
+                        <h3 className="text-base font-semibold text-white leading-snug">{storyCards[5].title}</h3>
+                        <p className="text-sm text-[#999] leading-relaxed line-clamp-2">{storyCards[5].description}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* See All Link */}
