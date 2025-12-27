@@ -109,8 +109,8 @@ const News = () => {
         <section className="py-24 lg:py-32 bg-background">
           <div className="container mx-auto px-6 lg:px-12">
             <SectionReveal>
-              <div className="flex items-start justify-between">
-                <h1 className="text-6xl lg:text-8xl font-bold" style={{ 
+              <div className="flex items-center justify-between">
+                <h1 className="text-4xl lg:text-6xl font-bold ml-4 lg:ml-6" style={{ 
                   color: '#e8590c',
                   WebkitTextStroke: '2px #e8590c',
                   WebkitTextFillColor: 'transparent',
@@ -122,7 +122,7 @@ const News = () => {
                 <img 
                   src="https://www.rebelfoods.com/images/newspaper.svg" 
                   alt="Newspaper Icon" 
-                  className="w-32 h-32 ml-auto"
+                  className="w-48 h-48 mr-4 lg:mr-8"
                 />
               </div>
             </SectionReveal>

@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PageTransition from '@/components/PageTransition';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SectionReveal from '@/components/SectionReveal';
 import { Link } from 'react-router-dom';
 
-// Press Release data (same 6 posts from News page)
+// Press Release data (initial batch)
 const pressReleases = [
   {
     id: 1,
@@ -57,21 +57,84 @@ const pressReleases = [
   }
 ];
 
+// Additional press releases loaded on "See More"
+  const extraPressReleases = [
+    {
+      id: 101,
+      title: "India’s first smart foodcourt by EatSure goes live in Pune",
+      description: "EatSure aims to open 100 offline stores in differe...",
+      date: "Jan 27, 2023",
+      image: "https://www.rebelfoods.com/uploads/PressCMS/press-detail-image/press1692253060MbM4FAjTvY.png",
+      link: "#"
+    },
+    {
+      id: 102,
+      title: "EatSure promotes its USP #FoodCourtOnAnApp through its new campaign",
+      description: "The nationwide campaign encourages people to order...",
+      date: "Dec 13, 2022",
+      image: "https://www.rebelfoods.com/uploads/PressCMS/press-detail-image/press1671019219wB8uyJWKWU.png",
+      link: "#"
+    },
+    {
+      id: 103,
+      title: "Rebel Foods onboards 15 iconic restaurant brands through Rebel Launcher",
+      description: "The company has been empowering restaurant brands ...",
+      date: "Nov 16, 2022",
+      image: "https://www.rebelfoods.com/uploads/PressCMS/press-detail-image/press1671018728EZPWeOEpwx.png",
+      link: "#"
+    },
+    {
+      id: 104,
+      title: "Rebel Foods joins ClimateAngels Fund backed ZeSUP Challenge– the Zero Single-Use Plastic Challenge to reduce single-use plastics in F&B industry",
+      description: "Sustainability-focused Climate tech fund, Climate ...",
+      date: "",
+      image: "https://www.rebelfoods.com/uploads/PressCMS/press-detail-image/press1655735314wCTnaX5UUg.png",
+      link: "#"
+    },
+    {
+      id: 105,
+      title: "Luxury Chocolate Brand SMOOR is now valued at upwards of $50 million, Rebel Foods acquires a majority stake",
+      description: "Rebel Foods, the world’s largest internet restaura...",
+      date: "Apr 07, 2022",
+      image: "https://www.rebelfoods.com/uploads/PressCMS/press-detail-image/press1649674174yDstZ31O6A.png",
+      link: "#"
+    },
+    {
+      id: 106,
+      title: "EatSure addresses critical unsolved problems of food delivery ecosystem",
+      description: "EatSure represents the brand’s own and partner bra... The Economic Times",
+      date: "Apr 06, 2022",
+      image: "https://www.rebelfoods.com/uploads/PressCMS/press-detail-image/press1652097799aVOcglYZol.png",
+      link: "#"
+    },
+  ];
+
+const allReleases = [...pressReleases, ...extraPressReleases];
+
 const PressRelease = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredReleases, setFilteredReleases] = useState(pressReleases);
+  const [visibleCount, setVisibleCount] = useState(pressReleases.length);
+  const pageSize = 6;
 
-  const handleSearch = () => {
+  const getVisibleReleases = () => {
     if (!searchQuery.trim()) {
-      setFilteredReleases(pressReleases);
-      return;
+      return allReleases.slice(0, visibleCount);
     }
-
-    const filtered = pressReleases.filter(release => 
+    const filtered = allReleases.filter(release =>
       release.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       release.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    setFilteredReleases(filtered);
+    return filtered;
+  };
+
+  const [filteredReleases, setFilteredReleases] = useState(getVisibleReleases());
+
+  useEffect(() => {
+    setFilteredReleases(getVisibleReleases());
+  }, [searchQuery, visibleCount]);
+
+  const handleSearch = () => {
+    setFilteredReleases(getVisibleReleases());
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -168,7 +231,7 @@ const PressRelease = () => {
                   <button 
                     onClick={() => {
                       setSearchQuery('');
-                      setFilteredReleases(pressReleases);
+                      setVisibleCount(pageSize);
                     }}
                     className="text-accent font-semibold underline hover:scale-110 transition-transform duration-300"
                   >
@@ -178,8 +241,11 @@ const PressRelease = () => {
               )}
               
               {/* See More Button */}
-              {filteredReleases.length > 0 && (
-                <button className="mt-8 text-accent font-semibold text-lg underline hover:scale-110 transition-transform duration-300 flex items-center gap-2">
+              {filteredReleases.length > 0 && !searchQuery && (
+                <button 
+                  onClick={() => setVisibleCount((prev) => (prev >= allReleases.length ? pageSize : Math.min(prev + pageSize, allReleases.length)))}
+                  className="mt-8 text-accent font-semibold text-lg underline hover:scale-110 transition-transform duration-300 flex items-center gap-2"
+                >
                   See More →
                 </button>
               )}
