@@ -63,18 +63,18 @@ const Events = () => {
 
             {/* Search Bar */}
             <SectionReveal delay={0.2}>
-              <div className="flex gap-4 max-w-4xl">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full max-w-4xl">
                 <input
                   type="text"
                   placeholder="Know what you're looking for?"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                  className="flex-1 px-8 py-4 bg-secondary/50 border border-border/30 rounded-full text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent/50 transition-colors"
+                  className="w-full sm:flex-1 px-6 sm:px-8 py-3 sm:py-4 bg-secondary/50 border border-border/30 rounded-full text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent/50 transition-colors"
                 />
                 <button
                   onClick={handleSearch}
-                  className="px-10 py-4 border-2 border-accent text-accent font-semibold rounded-full hover:bg-accent hover:text-background transition-all duration-300"
+                  className="w-full sm:w-auto px-6 sm:px-10 py-3 sm:py-4 border-2 border-accent text-accent font-semibold rounded-full hover:bg-accent hover:text-background transition-all duration-300"
                 >
                   Search &gt;
                 </button>

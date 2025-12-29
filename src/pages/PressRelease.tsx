@@ -152,7 +152,7 @@ const PressRelease = () => {
           <div className="container mx-auto px-6 lg:px-12">
             <SectionReveal>
               <div className="flex flex-col items-start">
-                <h1 className="text-5xl lg:text-6xl font-bold mb-12 ml-12" style={{ 
+                <h1 className="text-5xl lg:text-6xl font-bold mb-8 lg:mb-12 ml-0 lg:ml-12" style={{ 
                   color: '#e8590c',
                   WebkitTextStroke: '2px #e8590c',
                   WebkitTextFillColor: 'transparent',
@@ -163,19 +163,19 @@ const PressRelease = () => {
                 </h1>
                 
                 {/* Search Bar */}
-                <div className="w-full max-w-4xl ml-12">
-                  <div className="relative flex items-center gap-4">
+                <div className="w-full max-w-4xl ml-0 lg:ml-12">
+                  <div className="relative flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                     <input 
                       type="text"
                       placeholder="Know what you're looking for?"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       onKeyPress={handleKeyPress}
-                      className="flex-1 px-8 py-3 bg-secondary/50 border border-border/50 rounded-full text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-accent text-base"
+                      className="w-full sm:flex-1 px-6 sm:px-8 py-3 bg-secondary/50 border border-border/50 rounded-full text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-accent text-base"
                     />
                     <button 
                       onClick={handleSearch}
-                      className="px-8 py-3 bg-gradient-to-r from-accent to-orange-600 text-white font-semibold rounded-full hover:from-orange-600 hover:to-accent transition-all duration-300"
+                      className="w-full sm:w-auto px-6 sm:px-8 py-3 bg-gradient-to-r from-accent to-orange-600 text-white font-semibold rounded-full hover:from-orange-600 hover:to-accent transition-all duration-300"
                     >
                       Search &gt;
                     </button>
@@ -195,9 +195,9 @@ const PressRelease = () => {
                 <Link 
                   key={release.id}
                   to={release.link}
-                  className="flex bg-card/50 border border-border/50 rounded-2xl overflow-hidden hover:border-accent/50 transition-all duration-300 group w-full"
+                  className="flex flex-col sm:flex-row bg-card/50 border border-border/50 rounded-2xl overflow-hidden hover:border-accent/50 transition-all duration-300 group w-full"
                 >
-                  <div className="w-80 h-80 flex-shrink-0 overflow-hidden bg-secondary">
+                  <div className="w-full sm:w-80 h-48 sm:h-80 flex-shrink-0 overflow-hidden bg-secondary">
                     <img 
                       src={release.image} 
                       alt={release.title}
@@ -207,7 +207,7 @@ const PressRelease = () => {
                       }}
                     />
                   </div>
-                  <div className="p-10 flex-1 flex flex-col justify-center">
+                  <div className="p-6 sm:p-10 flex-1 flex flex-col justify-center">
                     <h3 className="press-release-heading orange-text mb-0 zoom-in line-clamp-2">
                       {release.title}
                     </h3>
