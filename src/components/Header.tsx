@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import rebelLogo from '@/assets/rebel-logo.svg';
@@ -74,6 +74,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileExpandedItem, setMobileExpandedItem] = useState<string | null>(null);
+  const [lastTappedItem, setLastTappedItem] = useState<string | null>(null);
+  const [lastTapTime, setLastTapTime] = useState<number>(0);
+  const navigate = useNavigate();
   const closeTimerRef = useRef<number | null>(null);
   const location = useLocation();
 
@@ -225,7 +228,14 @@ const Header = () => {
                     {item.subItems ? (
                       <>
                         <button
-                          onClick={() => toggleMobileSubmenu(item.label)}
+                          onClick={() => {
+                              if (mobileExpandedItem === item.label) {
+                                setIsMenuOpen(false);
+                                navigate(item.href);
+                              } else {
+                                setMobileExpandedItem(item.label);
+                              }
+                            }}
                           className={`w-full flex items-center justify-between text-base font-medium py-2 transition-colors duration-200 ${
                             location.pathname === item.href
                               ? 'text-foreground'
